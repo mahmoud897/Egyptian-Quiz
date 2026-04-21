@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,73 +16,337 @@
             --danger: #dc3545;
             --success: #28a745;
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             font-family: 'Tajawal', sans-serif;
             background-color: var(--scout-green);
             background-image: radial-gradient(circle at 50% 0%, var(--scout-light-green) 0%, var(--scout-green) 100%);
-            color: #333; display: flex; justify-content: center; align-items: center;
-            min-height: 100vh; overflow-x: hidden; padding: 20px 0;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding: 20px 0;
         }
+
         .container {
-            background-color: var(--scout-sand); width: 95%; max-width: 700px;
-            border-radius: 20px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
-            padding: 30px; text-align: center; position: relative; z-index: 10;
+            background-color: var(--scout-sand);
+            width: 95%;
+            max-width: 700px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
             border: 4px solid var(--scout-brown);
         }
-        .header { border-bottom: 2px dashed var(--scout-brown); padding-bottom: 15px; margin-bottom: 20px; }
-        .scout-logo { font-size: 2.5rem; color: var(--gold); margin-bottom: 5px; }
-        h1 { color: var(--scout-green); font-size: 1.6rem; margin-bottom: 5px; }
-        
-        .form-group { margin-bottom: 15px; text-align: right; }
-        .form-group label { display: block; font-weight: bold; color: var(--scout-green); margin-bottom: 5px; font-size: 1.1rem; }
-        .form-group input {
-            width: 100%; padding: 12px; border: 2px solid var(--scout-brown);
-            border-radius: 8px; font-family: 'Tajawal', sans-serif; font-size: 1rem;
-            background-color: white; outline: none;
+
+        .header {
+            border-bottom: 2px dashed var(--scout-brown);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
         }
-        .form-group input:focus { border-color: var(--scout-green); }
+
+        /* تنسيق الشعارات الجديدة */
+        .logos-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .logo-img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            border-radius: 50%;
+            border: 3px solid var(--gold);
+            background: white;
+            padding: 5px;
+        }
+
+        h1 {
+            color: var(--scout-green);
+            font-size: 1.6rem;
+            margin-bottom: 5px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: right;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            color: var(--scout-green);
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--scout-brown);
+            border-radius: 8px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1rem;
+            background-color: white;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: var(--scout-green);
+        }
+
         .start-btn {
-            background-color: var(--scout-green); color: white; border: none;
-            padding: 15px 40px; font-size: 1.3rem; font-weight: bold; border-radius: 30px;
-            margin-top: 20px; cursor: pointer; width: 100%; font-family: 'Tajawal', sans-serif;
+            background-color: var(--scout-green);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            border-radius: 30px;
+            margin-top: 20px;
+            cursor: pointer;
+            width: 100%;
+            font-family: 'Tajawal', sans-serif;
             transition: background 0.3s;
         }
-        .start-btn:hover { background-color: var(--scout-light-green); }
 
-        .avatar-container { font-size: 4.5rem; margin: 15px 0; transition: transform 0.3s ease; height: 80px; display: flex; align-items: center; justify-content: center; }
-        .avatar-container.happy { animation: bounce 0.5s ease; }
-        .question-text { font-size: 1.3rem; font-weight: 800; margin-bottom: 25px; color: #111; line-height: 1.5; }
-        .options { display: flex; flex-direction: column; gap: 12px; }
-        .option-btn {
-            background-color: white; border: 2px solid var(--scout-brown); color: var(--scout-brown);
-            padding: 15px 20px; font-size: 1.1rem; font-family: 'Tajawal', sans-serif; font-weight: 700;
-            border-radius: 12px; cursor: pointer; transition: all 0.2s ease; text-align: right;
+        .start-btn:hover {
+            background-color: var(--scout-light-green);
         }
-        .option-btn:hover:not(:disabled) { background-color: var(--scout-brown); color: white; transform: translateY(-2px); }
-        .option-btn:disabled { cursor: not-allowed; opacity: 0.85; }
-        .correct { background-color: var(--success) !important; border-color: var(--success) !important; color: white !important; animation: pulse 0.5s; }
-        .wrong { background-color: var(--danger) !important; border-color: var(--danger) !important; color: white !important; animation: shake 0.4s; }
-        .hint-box { display: none; background-color: #fff3cd; color: #856404; border: 2px solid #ffeeba; padding: 15px; border-radius: 10px; margin-top: 20px; font-size: 1.1rem; text-align: right; animation: fadeIn 0.5s; }
-        .next-btn { display: none; background-color: var(--scout-green); color: white; border: none; padding: 15px 40px; font-size: 1.2rem; font-weight: bold; border-radius: 30px; margin-top: 25px; cursor: pointer; font-family: 'Tajawal', sans-serif; transition: background 0.3s; }
-        .next-btn:hover { background-color: var(--scout-light-green); }
-        .progress { margin-top: 25px; font-size: 1rem; font-weight: bold; color: var(--scout-brown); background: rgba(139, 90, 43, 0.1); padding: 8px 15px; border-radius: 20px; display: inline-block; }
-        
-        @keyframes shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-10px); } 40% { transform: translateX(10px); } 60% { transform: translateX(-10px); } 80% { transform: translateX(10px); } }
-        @keyframes bounce { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-25px) scale(1.15); } }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-15px); } to { opacity: 1; transform: translateY(0); } }
-        .confetti { position: absolute; width: 12px; height: 12px; background-color: #f00; z-index: 1000; border-radius: 2px; animation: fall linear forwards; }
-        @keyframes fall { to { transform: translateY(100vh) rotate(720deg); } }
+
+        /* تنسيق المؤقت */
+        .timer-container {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--scout-green);
+            background: #fff;
+            padding: 10px;
+            border-radius: 15px;
+            border: 2px solid var(--scout-brown);
+            display: inline-block;
+            margin-bottom: 15px;
+            min-width: 120px;
+        }
+
+        .timer-danger {
+            color: var(--danger);
+            animation: pulse 1s infinite;
+        }
+
+        .avatar-container {
+            font-size: 4.5rem;
+            margin: 5px 0 15px 0;
+            transition: transform 0.3s ease;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .avatar-container.happy {
+            animation: bounce 0.5s ease;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+            color: #111;
+            line-height: 1.5;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-btn {
+            background-color: white;
+            border: 2px solid var(--scout-brown);
+            color: var(--scout-brown);
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 700;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: right;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            background-color: var(--scout-brown);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .option-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.85;
+        }
+
+        .correct {
+            background-color: var(--success) !important;
+            border-color: var(--success) !important;
+            color: white !important;
+            animation: pulse 0.5s;
+        }
+
+        .wrong {
+            background-color: var(--danger) !important;
+            border-color: var(--danger) !important;
+            color: white !important;
+            animation: shake 0.4s;
+        }
+
+        .hint-box {
+            display: none;
+            background-color: #fff3cd;
+            color: #856404;
+            border: 2px solid #ffeeba;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-size: 1.1rem;
+            text-align: right;
+            animation: fadeIn 0.5s;
+        }
+
+        .next-btn {
+            display: none;
+            background-color: var(--scout-green);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 30px;
+            margin-top: 25px;
+            cursor: pointer;
+            font-family: 'Tajawal', sans-serif;
+            transition: background 0.3s;
+        }
+
+        .next-btn:hover {
+            background-color: var(--scout-light-green);
+        }
+
+        .progress {
+            margin-top: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: var(--scout-brown);
+            background: rgba(139, 90, 43, 0.1);
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            20% {
+                transform: translateX(-10px);
+            }
+
+            40% {
+                transform: translateX(10px);
+            }
+
+            60% {
+                transform: translateX(-10px);
+            }
+
+            80% {
+                transform: translateX(10px);
+            }
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0) scale(1);
+            }
+
+            50% {
+                transform: translateY(-25px) scale(1.15);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .confetti {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-color: #f00;
+            z-index: 1000;
+            border-radius: 2px;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(720deg);
+            }
+        }
     </style>
 </head>
+
 <body>
 
     <div class="container" id="main-container">
         <div class="header">
-            <div class="scout-logo">⚜️</div>
+            <!-- مسار الصور (تأكد من تسمية الصور المرفوعة بنفس هذا الاسم) -->
+            <div class="logos-container">
+                <img src="لوجو جمعية الفتيان.jpeg" alt="شعار جمعية الفتيان" class="logo-img">
+                <img src="لوجو درع الجوالة الوطني.jpeg" alt="شعار درع الجوالة الوطني" class="logo-img">
+            </div>
             <h1>المسابقة الثقافية والدينية</h1>
-            <p>معالمنا، قيمنا المشتركة، ووحدتنا الوطنية</p>
+            <p>معالمنا، قيمنا المشتركة، وعقيدتنا</p>
         </div>
 
         <!-- شاشة تسجيل البيانات -->
@@ -105,12 +370,13 @@
 
         <!-- شاشة المسابقة -->
         <div id="quiz-screen" style="display: none;">
+            <div class="timer-container" id="timer-box">⏱️ <span id="time-left">10</span> ث</div>
             <div class="avatar-container" id="avatar">🧑‍🌾</div>
             <div class="question-text" id="question">جاري التحميل...</div>
             <div class="options" id="options"></div>
-            
+
             <div class="hint-box" id="hint">
-                <span class="hint-icon">💡</span> <strong>تلميح صديقك الجوال:</strong> <span id="hint-text"></span>
+                <span class="hint-icon">💡</span> <strong>تلميح أو معلومة:</strong> <span id="hint-text"></span>
             </div>
 
             <button class="next-btn" id="next-btn" onclick="nextQuestion()">السؤال التالي ➔</button>
@@ -123,61 +389,251 @@
     </div>
 
     <script>
-        // رابط جوجل سكريبت الخاص بك
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyViuy-9GBNAZzz6HhBFymWKbrSUFh4KWnZWc2pARFZLl6i_LetOPAf3fFKh9mNagbsuQ/exec";
 
-        let userData = {
-            name: "",
-            patrol: "",
-            phone: "",
-            score: 0
-        };
+        let userData = { name: "", patrol: "", phone: "", score: 0 };
 
-        // بنك الأسئلة بالكامل
+        // بنك الأسئلة الشامل (أسئلتك القديمة + عينة كبيرة من الأسئلة الجديدة)
+        // ملاحظة: correct هو رقم الإجابة الصحيحة (0 يعني أ، 1 يعني ب، 2 يعني ج، 3 يعني د)
         const allQuestions = [
-            { question: "مسجد يعتبر 'تاج العمارة الإسلامية' في مصر، بناه أحد سلاطين المماليك ويتميز بضخامته، ما هو؟", options: ["مسجد السلطان حسن", "مسجد أحمد بن طولون", "مسجد محمد علي", "الجامع الأزهر"], correct: 0, hint: "يقع هذا المسجد في منطقة القلعة بميدان الرميلة." },
-            { question: "من هو القائد المسلم الذي بنى مدينة القاهرة وأسس الجامع الأزهر الشريف؟", options: ["صلاح الدين الأيوبي", "عمرو بن العاص", "جوهر الصقلي", "أحمد بن طولون"], correct: 2, hint: "جاء إلى مصر في عهد الخليفة المعز لدين الله الفاطمي." },
-            { question: "شارع في القاهرة الفاطمية يُعد أكبر متحف مفتوح للآثار الإسلامية في العالم، ما اسمه؟", options: ["شارع الأزهر", "شارع المعز لدين الله", "شارع الخيامية", "شارع الصليبة"], correct: 1, hint: "سمي الشارع على اسم أول الخلفاء الفاطميين في مصر." },
-            { question: "أقدم مسجد في مصر وإفريقيا، وبُني في العاصمة القديمة 'الفسطاط'، ما هو؟", options: ["مسجد الحاكم بأمر الله", "مسجد عمرو بن العاص", "مسجد السيدة زينب", "مسجد الإمام الشافعي"], correct: 1, hint: "بناه الصحابي الذي فتح مصر، ويُعرف بـ 'تاج الجوامع'." },
-            { question: "مسجد في القاهرة يتميز بمئذنته 'الملوية' الفريدة من نوعها والتي تصعد إليها من الخارج، ما هو؟", options: ["مسجد المؤيد شيخ", "مسجد القلعة", "مسجد أحمد بن طولون", "مسجد الأقمر"], correct: 2, hint: "تأثر تصميم هذا المسجد ومئذنته بعمارة مدينة سامراء في العراق." },
-            { question: "قلعة شهيرة في القاهرة بناها قائد عظيم لتكون حصناً منيعاً، وتحتوي داخلها على عدة مساجد، ما هي؟", options: ["قلعة قايتباي", "قلعة صلاح الدين", "قلعة نخل", "حصن بابليون"], correct: 1, hint: "تقع على جبل المقطم وبانيها هو بطل معركة حطين." },
-            { question: "من أقدم وأشهر الكنائس في مصر، وسميت بهذا الاسم لأنها بُنيت على برجين من أبراج حصن بابليون الروماني. ما هي؟", options: ["الكنيسة المرقسية", "كنيسة أبي سرجة", "الكنيسة المعلقة", "كنيسة مارجرجس"], correct: 2, hint: "بسبب بنائها على الأبراج، فهي ترتفع عن مستوى الأرض." },
-            { question: "دير أثري يقع في جنوب سيناء عند سفح جبل موسى، ويُعد من أقدم الأديرة العاملة في العالم، ما هو؟", options: ["دير المحرق", "دير سانت كاترين", "دير الأنبا أنطونيوس", "دير وادي النطرون"], correct: 1, hint: "يحتوي الدير على شجرة العليقة المقدسة." },
-            { question: "منطقة في القاهرة تُعد من أهم محطات مسار العائلة المقدسة، وتوجد بها 'شجرة مريم'، ما هي؟", options: ["المعادي", "مصر القديمة", "المطرية", "جبل الطير"], correct: 2, hint: "منطقة في شرق القاهرة، اشتهرت قديما بمسلة سنوسرت الأول." },
-            { question: "كنيسة أثرية في مجمع الأديان بمصر القديمة، يُعتقد أن العائلة المقدسة اختبأت في المغارة الموجودة أسفلها، ما هي؟", options: ["كنيسة أبي سرجة", "كنيسة السيدة العذراء بالزيتون", "كنيسة الملاك ميخائيل", "الكنيسة البطرسية"], correct: 0, hint: "اسمها مقترن بالقديسين 'سرجيوس وواخس'." },
-            { question: "منطقة صحراوية في مصر تضم مجموعة من أقدم الأديرة القبطية وتُعد مهداً للرهبنة، أين تقع؟", options: ["وادي الريان", "وادي النطرون", "الصحراء البيضاء", "واحة سيوة"], correct: 1, hint: "تقع في محافظة البحيرة على الطريق الصحراوي بين القاهرة والإسكندرية." },
-            { question: "يوجد في أسيوط دير عظيم يُعتبر المحطة الأهم والأطول في مسار العائلة المقدسة بمصر، ما اسمه؟", options: ["دير العذراء بدرنكة", "دير المحرق", "دير الأنبا شنودة", "دير القديسة دميانه"], correct: 1, hint: "يُعرف أيضاً بـ 'جبل قسقام'." },
-            { question: "منطقة أثرية في القاهرة تُجسد الوحدة الوطنية، حيث تضم مسجد عمرو بن العاص، الكنيسة المعلقة، ومعبد بن عزرا في مكان واحد. ما اسمها؟", options: ["القاهرة الفاطمية", "مجمع الأديان", "منطقة الأزهر", "ميدان التحرير"], correct: 1, hint: "اسمها يدل على أنها تجمع أماكن العبادة للديانات السماوية الثلاث." },
-            { question: "شخصية دينية ووطنية مسيحية، لُقب بـ 'خطيب ثورة 1919'، وكان يخطب في الجامع الأزهر، من هو؟", options: ["البابا كيرلس السادس", "القمص سرجيوس", "مكرم عبيد", "البابا شنودة الثالث"], correct: 1, hint: "رجل دين ارتدى العمامة الأزهرية ووقف على منبر الأزهر الشريف منادياً بالوحدة." },
-            { question: "مقولة شهيرة تجسد التسامح والوحدة في مصر: 'الدين لله والوطن...' أكمل:", options: ["للجميع", "للمواطنين", "للعرب", "سلام"], correct: 0, hint: "شعار رُفع خلال ثورة 1919 للتأكيد على مساواة جميع المصريين." },
-            { question: "من هو البطريرك الوطني الذي قال المقولة الشهيرة: 'مصر ليس وطناً نعيش فيه، بل وطن يعيش فينا'؟", options: ["البابا تواضروس الثاني", "البابا شنودة الثالث", "البابا كيرلس السادس", "الأنبا غريغوريوس"], correct: 1, hint: "يُعرف بـ 'بابا العرب' وكان له دور بارز في تعزيز الوحدة الوطنية." },
-            { question: "في أي ثورة مصرية ظهر علم يحمل 'الهلال يعانق الصليب' كرمز قوي للتلاحم بين المسلمين والمسيحيين؟", options: ["ثورة عرابي", "ثورة 1919", "ثورة 23 يوليو", "ثورة القاهرة الأولى"], correct: 1, hint: "ثورة قادها سعد زغلول ضد الاحتلال الإنجليزي." },
-            { question: "رمز إسلامي كبير، كان شيخاً للأزهر وله مواقف مشرفة في دعم الوحدة الوطنية، وكان صديقاً مقرباً للبابا كيرلس، من هو؟", options: ["الشيخ الشعراوي", "الشيخ محمود شلتوت", "الشيخ حسن الباقوري", "الشيخ عبد الحليم محمود"], correct: 2, hint: "له صورة شهيرة تجمعه بالبابا كيرلس يتبادلان فيها الحديث الودي." },
-            { question: "قيمة أخلاقية تعني مساعدة الآخرين وتقديم العون للمحتاجين دون انتظار مقابل، وهي من أساسيات كل الأديان:", options: ["الأمانة", "العطاء (الصدقة/المحبة)", "الشجاعة", "الاعتماد على النفس"], correct: 1, hint: "هي عكس البخل والأنانية." },
-            { question: "فضيلة عظيمة دعا إليها الإسلام والمسيحية، تعني العفو عن من أساء إليك وعدم رد الإساءة بمثلها، ما هي؟", options: ["التسامح", "العدل", "القوة", "الحكمة"], correct: 0, hint: "خلق كريم يجعل المجتمع مترابطاً وينزع الكراهية من القلوب." },
-            { question: "صفة أساسية تعني حفظ الودائع والوعود، ونقيضها الخيانة، وهي من أهم صفات الإنسان الصالح:", options: ["الكرم", "الأمانة", "التواضع", "الصبر"], correct: 1, hint: "كان يُلقب بها النبي محمد قبل البعثة (الصادق الـ...)." },
-            { question: "من القيم المشتركة التي تبني الأوطان، وهي أن تتقبل رأي ومعتقد الآخرين وتعيش معهم بسلام، تُسمى:", options: ["التعايش السلمي", "المنافسة", "الانعزال", "التحدي"], correct: 0, hint: "تعني أن نعيش معاً في نفس المجتمع بحب وسلام رغم اختلافاتنا." },
-            { question: "خلق حميد يعني عدم التكبر على الناس ومعاملتهم بلطف ومساواة مهما كان منصبك أو ثروتك:", options: ["الشجاعة", "التواضع", "الطموح", "الصدق"], correct: 1, hint: "من تواضع لله رفعه." },
-            { question: "ما هو واجبنا تجاه الجار كما حثت جميع الأديان السماوية؟", options: ["تجاهله تماماً", "الإحسان إليه وتفقد أحواله", "التنافس معه فقط", "التدخل في خصوصياته"], correct: 1, hint: "الرسول أوصى بالجار، وكذلك في الوصايا الكتابية." },
-            { question: "البر بالوالدين هو قيمة كبرى تعني:", options: ["طاعتهما واحترامهما ورعايتهما", "توفير المال لهما فقط", "زيارتهما في الأعياد فقط", "الاعتماد عليهما دائما"], correct: 0, hint: "الجنة تحت أقدام الأمهات." },
-            { question: "أين يوجد معبد 'بن عزرا' اليهودي الذي يمثل الضلع الثالث لمجمع الأديان في مصر؟", options: ["في الإسكندرية", "في مصر القديمة بالقاهرة", "في حارة اليهود بالموسكي", "في المعادي"], correct: 1, hint: "يقع في نفس المنطقة التي تضم الكنيسة المعلقة ومسجد عمرو بن العاص." },
-            { question: "ما هي المدينة المصرية التي تُعرف بـ 'مدينة الألف مئذنة' لكثرة مساجدها التاريخية؟", options: ["الإسكندرية", "القاهرة", "رشيد", "أسوان"], correct: 1, hint: "هي عاصمة مصر الحالية." },
-            { question: "شخصية تاريخية عظيمة، كفل لليهود والمسيحيين حرية العبادة في القدس بعد فتحها وكتب لهم 'العهدة العمرية'، من هو؟", options: ["عمر بن الخطاب", "صلاح الدين الأيوبي", "خالد بن الوليد", "أبو بكر الصديق"], correct: 0, hint: "ثاني الخلفاء الراشدين، ويُلقب بالفاروق." },
-            { question: "ما هي المحافظة المصرية التي تحتوي على ثلث آثار العالم، ومن بينها آثار تمزج بين الفن الفرعوني والقبطي والإسلامي؟", options: ["الجيزة", "الأقصر", "سوهاج", "أسوان"], correct: 1, hint: "تقع في صعيد مصر، وكانت تسمى قديماً 'طيبة'." },
-            { question: "ما هو الاسم القديم لمدينة القاهرة قبل أن يبنيها الفاطميون؟", options: ["منف", "طيبة", "الفسطاط / القطائع", "الإسكندرية"], correct: 2, hint: "الفسطاط بناها عمرو بن العاص، والقطائع بناها أحمد بن طولون." }
+            // --- القسم الأول: القرآن الكريم وعلومه ---
+            { question: "ما هي السورة التي تسمى 'قلب القرآن'؟", options: ["يس", "الرحمن", "الواقعة", "الملك"], correct: 0, hint: "سورة تبدأ بحروف مقطعة." },
+            { question: "كم عدد السور المكية في القرآن الكريم تقريباً؟", options: ["86 سورة", "28 سورة", "114 سورة", "90 سورة"], correct: 0, hint: "أغلب سور القرآن نزلت قبل الهجرة." },
+            { question: "ما هي السورة التي ختمت آيتها الأولى بـ 'الحمد لله'؟", options: ["الفتحة", "الأنعام", "الكهف", "سبأ"], correct: 2, hint: "سورة تحكي قصة أهل الكهف." },
+            { question: "من هو النبي الذي ورد اسمه في القرآن الكريم 25 مرة؟", options: ["نوح", "موسى", "عيسى", "إبراهيم"], correct: 1, hint: "كليم الله." },
+            { question: "ما هي السورة التي تسمى 'عروس القرآن'؟", options: ["البقرة", "الرحمن", "مريم", "الواقعة"], correct: 1, hint: "تبدأ بـ 'الرحمن علم القرآن'." },
+            { question: "ما هي أطول آية في القرآن الكريم؟", options: ["آية الكرسي", "آية الدين", "خاتمة سورة البقرة", "أول سورة الكهف"], correct: 1, hint: "توجد في سورة البقرة وتتحدث عن الدَّين." },
+            { question: "في أي سورة وردت 'البسملة' مرتين؟", options: ["التوبة", "النمل", "الفاتحة", "مريم"], correct: 1, hint: "سورة تبدأ بـ 'طس' وتحكي قصة سليمان." },
+            { question: "ما هي السورة الوحيدة التي لا تبدأ بالبسملة؟", options: ["التوبة", "الأنفال", "محمد", "المنافقون"], correct: 0, hint: "سورة نزلت في فضح المنافقين وبدأت بالبراءة." },
+            { question: "ما هو الحيوان الذي تكلم في القرآن الكريم؟", options: ["الهدهد فقط", "النملة فقط", "الكلب فقط", "جميع ما سبق"], correct: 3, hint: "فكر في قصة سليمان وأصحاب الكهف." },
+            { question: "ما هي السورة التي يطلق عليها 'سنام القرآن'؟", options: ["البقرة", "الإسراء", "النحل", "الأعراف"], correct: 0, hint: "أطول سورة في القرآن." },
+            { question: "كم مرة ورد لفظ 'الدنيا' في القرآن الكريم؟", options: ["115 مرة", "100 مرة", "150 مرة", "80 مرة"], correct: 0, hint: "يساوي نفس عدد مرات ورود لفظ 'الآخرة'." },
+            { question: "من هو الصحابي الذي له راية يوم القيامة ويقال له 'سيد القراء'؟", options: ["عمر بن الخطاب", "علي بن أبي طالب", "أُبي بن كعب", "عبد الله بن مسعود"], correct: 2, hint: "أحد كتاب الوحي." },
+            { question: "ما هي السورة التي تنتهي آياتها بحرف الدال؟", options: ["الإخلاص", "الفلق", "الناس", "الكوثر"], correct: 0, hint: "سورة تعدل ثلث القرآن." },
+            { question: "ما هي الكلمة التي تقع في وسط القرآن الكريم؟", options: ["العدل", "الجنة", "الوسط", "الرحمن"], correct: 2, hint: "وردت في سورة الكهف." },
+            { question: "من هو الملك الذي أمر بقتل الأطفال في زمن موسى عليه السلام؟", options: ["فرعون", "نمرود", "قارون", "هامان"], correct: 0, hint: "الطاغية الذي ادعى الربوبية." },
+            { question: "ما هي السورة التي افتتحت بثلاثة أحرف مقطعة (الم)؟", options: ["آل عمران فقط", "العنكبوت فقط", "السجدة فقط", "جميع ما سبق"], correct: 3, hint: "هناك أكثر من سورة تبدأ بها." },
+            { question: "كم عدد السور التي بدأت بـ 'الحمد لله'؟", options: ["5 سور", "7 سور", "4 سور", "10 سور"], correct: 0, hint: "الفاتحة، الأنعام، الكهف، سبأ، فاطر." },
+            { question: "ما اسم السورة التي تحتوي على آية الكرسي؟", options: ["آل عمران", "البقرة", "النساء", "المائدة"], correct: 1, hint: "أعظم آية في كتاب الله." },
+            { question: "من هي المرأة التي ذكرت باسمها صراحة في القرآن الكريم؟", options: ["مريم", "آسيا", "خديجة", "هاجر"], correct: 0, hint: "أم عيسى عليه السلام." },
+            { question: "ما هي السورة التي ذكر فيها 'بسم الله الرحمن الرحيم' كآية داخل السورة؟", options: ["النمل", "الفاتحة", "هود", "يوسف"], correct: 0, hint: "في رسالة سليمان إلى بلقيس." },
+            { question: "كم عدد أجزاء القرآن الكريم؟", options: ["30 جزءاً", "60 حزباً", "114 سورة", "جميع ما سبق صحيح"], correct: 0, hint: "العدد الشهير المعروف لدى المسلمين." },
+            { question: "من هو النبي الذي قال عنه الله تعالى: 'وآتيناه الحكمة صبياً'؟", options: ["عيسى", "يحيى", "إبراهيم", "يوسف"], correct: 1, hint: "ابن نبي الله زكريا." },
+            { question: "ما هي السورة التي وصفها الرسول ﷺ بأنها 'نور' لم يُقرأ مثلها؟", options: ["سورة الأنبياء", "سورة النور", "سورة يوسف", "سورة الإسراء"], correct: 0, hint: "سميت باسم جماعة من الرسل." },
+            { question: "ما هي 'السبع المثاني'؟", options: ["السبع الطوال", "سورة الفاتحة", "الجزء الثلاثون", "سورة البقرة"], correct: 1, hint: "تكرر قراءتها في كل ركعة." },
+            { question: "ما هو الشيء الذي خُلق بدون أب وأم؟", options: ["الملائكة", "الجان", "آدم", "جميع ما سبق"], correct: 3, hint: "يشمل آدم وعيسى والملائكة." },
+            { question: "في أي عام توفي النبي صلى الله عليه وسلم؟", options: ["10 هـ", "11 هـ", "12 هـ", "13 هـ"], correct: 1, hint: "بعد حجة الوداع بعام." },
+            { question: "من هو الصحابي الذي جمع القرآن في عهد أبي بكر رضي الله عنه؟", options: ["عثمان بن عفان", "علي بن أبي طالب", "زيد بن ثابت", "عمر بن الخطاب"], correct: 2, hint: "كان كاتب الوحي وشاباً حافظاً." },
+            { question: "ما هي السورة التي تبدأ بـ 'يا أيها النبي'؟", options: ["الأحزاب", "التحريم", "الطلاق", "محمد"], correct: 0, hint: "سميت باسم الأحزاب في الخندق." },
+            { question: "كم عدد الأنبياء الذين ذكروا في سورة الأنعام؟", options: ["18 نبياً", "12 نبياً", "15 نبياً", "20 نبياً"], correct: 0, hint: "عدد كبير من الأنبياء في آيات متتالية." },
+            { question: "ما هي السورة التي تسمى 'بني إسرائيل'؟", options: ["الأعراف", "يوسف", "الإسراء", "المائدة"], correct: 2, hint: "تحدثت عن رحلة الإسراء." },
+            { question: "من هو أول من كتب 'بسم الله الرحمن الرحيم' في الكتب؟", options: ["النبي إبراهيم", "النبي محمد ﷺ", "النبي سليمان", "النبي داود"], correct: 2, hint: "كتبها في رسائله لملوك الأرض." },
+            { question: "ما هي أطول كلمة في القرآن الكريم؟", options: ["فأسقيناكموه", "أنلزمكموها", "فسيكفيكهم", "فكهين"], correct: 0, hint: "توجد في سورة الحجر." },
+            { question: "ما هي السورة التي لا تحتوي على حرف 'الكاف'؟", options: ["قريش", "الفيل", "الإخلاص", "الكوثر"], correct: 0, hint: "سورة قصيرة في الجزء الثلاثين." },
+            { question: "كم عدد الآيات التي تبدأ بكلمة 'قل' في القرآن؟", options: ["200 آية", "332 آية", "150 آية", "100 آية"], correct: 1, hint: "عدد يتجاوز الثلاثمائة." },
+            { question: "ما هي السورة التي تحتوي على قصة ذي القرنين؟", options: ["الأنبياء", "الكهف", "فاطر", "يس"], correct: 1, hint: "سورة فيها ثلاث قصص عظيمة." },
+            { question: "ما هي السورة التي ذكر فيها 'النار' ولم تذكر 'الجنة'؟", options: ["الليل", "المسد", "الهمزة", "التكوير"], correct: 1, hint: "سورة في أبي لهب وزوجته." },
+            { question: "من هو الصحابي الذي قال عنه الرسول ﷺ 'اقرأوا القرآن على أربعة...'؟", options: ["عبد الله بن مسعود", "سالم مولى أبي حذيفة", "أُبي بن كعب", "معاذ بن جبل"], correct: 0, hint: "صاحب السبق في التعلم والتعليم." },
+            { question: "كم سنة استغرق نزول القرآن الكريم؟", options: ["20 سنة", "23 سنة", "25 سنة", "30 سنة"], correct: 1, hint: "نزل على فترات تزامناً مع البعثة." },
+            { question: "ما هي السورة التي تسمى 'الناجية'؟", options: ["الأعراف", "الأنعام", "الرعد", "يونس"], correct: 0, hint: "لأنها تنجي صاحبها من عذاب الله." },
+            { question: "من هو ملك الموت عليه السلام؟", options: ["جبريل", "ميكائيل", "عزرائيل", "إسرافيل"], correct: 2, hint: "الموكل بقبض الأرواح." },
+            { question: "ما هي السورة التي أخبرت عن نهاية أبي لهب؟", options: ["الكوثر", "المسد", "الفيل", "قريش"], correct: 1, hint: "تبدأ بـ 'تبت يدا أبي لهب'." },
+            { question: "من هو النبي الذي ابتلعه الحوت؟", options: ["يونس", "موسى", "نوح", "إلياس"], correct: 0, hint: "ذو النون." },
+            { question: "ما هي أقصر سورة في القرآن الكريم؟", options: ["العصر", "الكوثر", "الإخلاص", "النصر"], correct: 1, hint: "عدد آياتها 3." },
+            { question: "كم عدد الآيات التي في سورة البقرة؟", options: ["280 آية", "286 آية", "290 آية", "300 آية"], correct: 1, hint: "عدد ينتهي بالرقم 6." },
+            { question: "ما هي السور التي تسمى 'العوذات'؟", options: ["الإخلاص، الفلق، الناس", "البقرة، آل عمران، النساء", "الفلق، الناس، الكوثر", "يس، الرحمن، الواقعة"], correct: 0, hint: "يُستعاذ بها من الشرور." },
+            { question: "ما هي أول سورة نزلت في المدينة المنورة؟", options: ["البقرة", "المدثر", "العلق", "الفاتحة"], correct: 0, hint: "أطول سورة وهي مدنية بالكامل." },
+            { question: "من هو أول من أسلم من الصبيان؟", options: ["علي بن أبي طالب", "الزبير بن العوام", "طلحة بن عبيد الله", "سعد بن أبي وقاص"], correct: 0, hint: "ابن عم النبي ﷺ." },
+            { question: "ما هي السورة التي نزلت بعد سورة الفاتحة كاملة؟", options: ["البقرة", "المدثر", "المسد", "الإخلاص"], correct: 2, hint: "في أبي لهب." },
+            { question: "من الذي كتب صحفاً لرسول الله ﷺ بخطه؟", options: ["عثمان بن عفان", "علي بن أبي طالب", "زيد بن ثابت", "عبد الله بن أرقم"], correct: 0, hint: "أمير المؤمنين الثالث." },
+            { question: "كم مرة ذكر اسم 'محمد' في القرآن الكريم؟", options: ["3 مرات", "4 مرات", "5 مرات", "6 مرات"], correct: 1, hint: "عدد قليل من المرات." },
+
+            // --- القسم الثاني: الحديث الشريف وعلومه ---
+            { question: "من هو أكثر الصحابة رواية للحديث عن النبي ﷺ؟", options: ["عمر بن الخطاب", "أبو هريرة", "أنس بن مالك", "عائشة بنت أبي بكر"], correct: 1, hint: "أسلم متأخراً وحافظاً للسنة." },
+            { question: "ما هو أصح كتاب بعد كتاب الله تعالى؟", options: ["صحيح مسلم", "صحيح البخاري", "سنن أبي داود", "موطأ مالك"], correct: 1, hint: "لإمام الجرح والتعديل." },
+            { question: "كم عدد كتب 'الصحاح الستة'؟", options: ["5 كتب", "6 كتب", "7 كتب", "4 كتب"], correct: 1, hint: "متفق على شهرتها." },
+            { question: "من هو الصحابي الملقب بـ 'المحدث' لقوة حفظه؟", options: ["أبو بكر الصديق", "عبد الله بن عمرو بن العاص", "معاذ بن جبل", "عبد الله بن مسعود"], correct: 1, hint: "كان يكتب الحديث بإذن النبي." },
+            { question: "ما هو الحديث الذي رواه كل راوٍ عن شيخه من أول الإسناد إلى آخره؟", options: ["الحديث المعلق", "الحديث المتصل", "الحديث المرسل", "الحديث المنقطع"], correct: 1, hint: "لا يوجد انقطاع في سنده." },
+            { question: "من هو مؤلف كتاب 'رياض الصالحين'؟", options: ["الإمام النووي", "الإمام البخاري", "الإمام مسلم", "الإمام ابن حجر"], correct: 0, hint: "صاحب الأذكار والأربعين النووية." },
+            { question: "ما هو الحديث القدسي؟", options: ["كلام النبي ﷺ", "كلام الله بلفظ النبي ﷺ", "تفسير القرآن", "قول الصحابي"], correct: 1, hint: "معناه من الله ولفظه من النبي." },
+            { question: "من الصحابية التي روت الكثير من الأحاديث عن النبي ﷺ؟", options: ["خديجة بنت خويلد", "عائشة بنت أبي بكر", "فاطمة الزهراء", "حفصة بنت عمر"], correct: 1, hint: "أم المؤمنين الصديقة." },
+            { question: "كم عدد أحاديث صحيح البخاري تقريباً (بغير المكرر)؟", options: ["7000 حديث", "2762 حديث", "3000 حديث", "4000 حديث"], correct: 1, hint: "عدد في خانة الألفين." },
+            { question: "ما اسم الكتاب الذي جمع فيه البخاري أحاديث الأحكام؟", options: ["الأدب المفرد", "الجامع الصحيح", "خلق أفعال العباد", "التاريخ الكبير"], correct: 1, hint: "اسمه 'الجامع المسند الصحيح'." },
+            { question: "من هو الصحابي الذي كان يكتب الوحي لرسول الله ﷺ؟", options: ["عمر بن الخطاب", "عثمان بن عفان", "زيد بن ثابت", "علي بن أبي طالب"], correct: 2, hint: "حافظ القرآن وكاتبه." },
+            { question: "ما هو الحديث الذي يرفعه الصحابي إلى النبي ﷺ قائلاً: قال رسول الله؟", options: ["الموقوف", "المرفوع", "المقطوع", "المرسل"], correct: 1, hint: "منسوب إلى النبي مباشرة." },
+            { question: "ما هو لقب الإمام مسلم بن الحجاج؟", options: ["أمير المؤمنين في الحديث", "حجة الإسلام", "شيخ الإسلام", "سيد الحفاظ"], correct: 0, hint: "لقب عظيم في علم الحديث." },
+            { question: "من هو مؤلف كتاب 'فتح الباري'؟", options: ["ابن حجر العسقلاني", "ابن كثير", "النووي", "السيوطي"], correct: 0, hint: "شرح لصحيح البخاري." },
+            { question: "ما هو الحديث الضعيف؟", options: ["ما رواه العدل الضابط", "ما فقد شرطاً من شروط القبول", "ما رواه الضعيف", "الإجابة ب وج"], correct: 3, hint: "لا يعمل به في الأحكام." },
+            { question: "من هو أول من دون الحديث النبوي بشكل رسمي؟", options: ["عمر بن عبد العزيز", "أبو بكر الصديق", "ابن شهاب الزهري", "الإمام مالك"], correct: 0, hint: "أمر به في عصره." },
+            { question: "ما معنى 'المرسل' في مصطلح الحديث؟", options: ["ما رواه التابعي عن النبي مباشرة", "ما رواه التابعي عن الصحابي", "ما رواه الصحابي عن الصحابي", "ما اتصل سنده"], correct: 0, hint: "سقط منه الصحابي." },
+            { question: "كم عدد أحاديث صحيح مسلم (بغير المكرر)؟", options: ["3000", "4000", "3033", "5000"], correct: 2, hint: "عدد قريب من البخاري." },
+            { question: "من هو الصحابي المعروف بدقة حفظه لخطبة النبي ﷺ في حجة الوداع؟", options: ["جابر بن عبد الله", "أبو بكرة", "ربيعة بن أمية", "العرباض بن سارية"], correct: 0, hint: "روى حديثاً طويلاً عن الحج." },
+            { question: "أي من هؤلاء ليس من رواة الصحاح الستة؟", options: ["الترمذي", "ابن ماجه", "الدارمي", "النسائي"], correct: 2, hint: "صاحب السنن المشهورة." },
+            { question: "ما هي السورة التي تعدل ثلث القرآن؟", options: ["الإخلاص", "الفاتحة", "البقرة", "يس"], correct: 0, hint: "سورة قصيرة جداً." },
+            { question: "من هو الصحابي الذي ضحك الله منه؟", options: ["أبو بكر", "عمر", "علي", "النعمان بن بشير"], correct: 3, hint: "في قصة العطية والشهادة." },
+            { question: "ما هي أعظم آية في كتاب الله؟", options: ["خاتمة البقرة", "آية الكرسي", "آية النور", "أول سورة الزمر"], correct: 1, hint: "في سورة البقرة رقم 255." },
+            { question: "ما هو الإسناد؟", options: ["متن الحديث", "سلسلة الرواة", "موضوع الحديث", "درجة الحديث"], correct: 1, hint: "طريق الوصول للنص." },
+            { question: "من هو الصحابي الذي كان يسمى 'ترجمان القرآن'؟", options: ["عبد الله بن عباس", "عبد الله بن مسعود", "أُبي بن كعب", "زيد بن ثابت"], correct: 0, hint: "حبر الأمة." },
+            { question: "كم عدد سنن أبي داود؟", options: ["5000 حديث", "4800 حديث", "4000 حديث", "3000 حديث"], correct: 1, hint: "عدد يقارب الخمسة آلاف." },
+            { question: "ما هو الحديث المعلق؟", options: ["ما حذف من أول إسناده راوٍ", "ما حذف آخر إسناده", "ما اتصل سنده", "ما رواه التابعي"], correct: 0, hint: "نوع من أنواع الانقطاع." },
+            { question: "من هو مؤلف كتاب 'الأذكار'؟", options: ["ابن حجر", "النووي", "ابن القيم", "الغزالي"], correct: 1, hint: "الإمام النووي." },
+            { question: "أي من التالي يُعد من كتب السنن؟", options: ["صحيح البخاري", "سنن الترمذي", "موطأ مالك", "مسند أحمد"], correct: 1, hint: "كتاب في السنن وليس الصحيح." },
+            { question: "ما هو الحديث الحسن؟", options: ["ما رواه الثقة الضابط", "ما رواه صدوق خفيف الضبط", "ما رواه الضعيف", "ما لم يوجد له إسناد"], correct: 1, hint: "مرتبته بين الصحيح والضعيف." },
+
+            // --- القسم الثالث: العقيدة والتوحيد ---
+            { question: "ما هي أركان الإيمان؟", options: ["الإسلام، الإيمان، الإحسان", "ستة أركان", "خمسة أركان", "سبعة أركان"], correct: 1, hint: "عدد محدد في حديث جبريل." },
+            { question: "من هو خاتم الأنبياء والمرسلين؟", options: ["عيسى عليه السلام", "محمد ﷺ", "موسى عليه السلام", "إبراهيم عليه السلام"], correct: 1, hint: "نبي هذه الأمة." },
+            { question: "ما هي المدة التي بقي فيها نوح عليه السلام يدعو قومه؟", options: ["950 سنة", "1000 سنة", "500 سنة", "900 سنة"], correct: 0, hint: "وردت في القرآن الكريم." },
+            { question: "من هو أول الرسل؟", options: ["آدم", "نوح", "إبراهيم", "موسى"], correct: 1, hint: "أرسل إلى قومه بعد الغرق." },
+            { question: "ما هو أعظم ذنب عند الله؟", options: ["عقوق الوالدين", "الشرك بالله", "قتل النفس", "أكل مال اليتيم"], correct: 1, hint: "ذنب لا يغفر بدون توبة." },
+            { question: "كم عدد الملائكة الموكلين بابن آدم؟", options: ["4 ملائكة", "10 ملائكة", "ملكان", "6 ملائكة"], correct: 0, hint: "ملكان بالنهار وملكان بالليل للحفظ والكتابة." },
+            { question: "ما هي السورة التي تعادل ربع القرآن؟", options: ["الإخلاص", "الزلزلة", "الكافرون", "الفاتحة"], correct: 2, hint: "سورة فيها البراءة من الشرك." },
+            { question: "من هو الملك الموكل بالنفخ في الصور؟", options: ["جبريل", "ميكائيل", "إسرافيل", "عزرائيل"], correct: 2, hint: "ينتظر أمر الله للقيامة." },
+            { question: "أين تقع الجنة؟", options: ["في الأرض", "في السماء السابعة", "في السماء الدنيا", "جنة الفردوس أعلى الجنة"], correct: 3, hint: "سقفها عرش الرحمن." },
+            { question: "كم عدد أبواب الجنة؟", options: ["7 أبواب", "8 أبواب", "10 أبواب", "100 باب"], correct: 1, hint: "عدد لا يتفق مع أبواب النار." },
+            { question: "كم عدد أبواب النار؟", options: ["7 أبواب", "8 أبواب", "5 أبواب", "10 أبواب"], correct: 0, hint: "وارد في سورة الحجرات." },
+            { question: "من هم 'الأولياء' عند الله؟", options: ["العلماء فقط", "المؤمنون المتقون", "الأنبياء فقط", "الملائكة"], correct: 1, hint: "هم الذين آمنوا وكانوا يتقون." },
+            { question: "ما هو 'الصبر الجميل'؟", options: ["الصبر بدون شكوى", "الصبر على الطاعة", "الصبر عن المعصية", "الصبر على الابتلاء"], correct: 0, hint: "قوله تعالى 'فصبر جميل'." },
+            { question: "ما هي 'الحوض' في الآخرة؟", options: ["نهر في الجنة", "حوض ماء يشرب منه المؤمنون", "وسيلة للوضوء", "بحر من عسل"], correct: 1, hint: "مورد لأمة محمد ﷺ يوم القيامة." },
+            { question: "من هو أول من يحاسب يوم القيامة؟", options: ["الأنبياء", "الصائمون", "أمة محمد ﷺ", "الكفار"], correct: 2, hint: "شفاعة لأمته." },
+            { question: "ما هي الشفاعة العظمى؟", options: ["شفاعة الأنبياء", "شفاعة النبي ﷺ في فصل القضاء", "شفاعة الملائكة", "شفاعة العلماء"], correct: 1, hint: "المقام المحمود." },
+            { question: "ما هي السنة التي خُلق فيها آدم عليه السلام؟", options: ["يوم الجمعة", "يوم الإثنين", "يوم الخميس", "يوم الأحد"], correct: 0, hint: "أفضل أيام الأسبوع." },
+            { question: "من أي شيء خُلق الإنسان؟", options: ["من طين", "من نطفة", "من ماء مهين", "جميع ما سبق مراحل"], correct: 3, hint: "مراحل متعددة للخلق." },
+            { question: "ما هو التوحيد؟", options: ["الإيمان بالله", "إفراد الله بالعبادة والربوبية والأسماء والصفات", "الصلاة لله", "ذكر الله"], correct: 1, hint: "أصل الدين." },
+            { question: "من هم 'الغرا المحجلون'؟", options: ["الأنبياء", "السابقون إلى الإسلام", "الذين يبيض وجوههم من آثار الوضوء", "الشهداء"], correct: 2, hint: "علامة الوضوء يوم القيامة." },
+            { question: "ما هو 'المعراج'؟", options: ["هجرة النبي ﷺ", "رحلة النبي ﷺ من مكة للقدس", "صعود النبي ﷺ إلى السماوات", "الإسراء"], correct: 2, hint: "كان في ليلة الإسراء." },
+            { question: "من هو النبي الذي كلمه الله مباشرة بدون واسطة؟", options: ["إبراهيم", "محمد ﷺ", "موسى", "عيسى"], correct: 2, hint: "لقبه 'كليم الله'." },
+            { question: "ما هي الصلاة التي لا ركوع فيها ولا سجود؟", options: ["صلاة الجنازة", "صلاة العيد", "صلاة الاستسقاء", "صلاة الكسوف"], correct: 0, hint: "صلاة على الميت." },
+            { question: "ما هي أول ما يحاسب عليه العبد؟", options: ["الصلاة", "الصيام", "الصدقة", "بر الوالدين"], correct: 0, hint: "عمود الدين." },
+            { question: "من هو 'القرين'؟", options: ["صاحبك في الدنيا", "الملك الموكل بك", "شيطان يُقارن ابن آدم", "أخوك في الدين"], correct: 2, hint: "يوسوس للإنسان." },
+            { question: "كم عدد السموات؟", options: ["5", "6", "7", "8"], correct: 2, hint: "وارد في القرآن الكريم." },
+            { question: "من هو 'الكروبيون'؟", options: ["جنود الأرض", "حملة العرش", "ملائكة القبر", "كتبة الحسنات"], correct: 1, hint: "ملائكة عظام حول العرش." },
+            { question: "ما هي الغيبيات الخمس؟", options: ["الساعة، الغيث، الأرحام، الرزق، موضع الميت", "الجنة، النار، الساعة، القبر، الحشر", "الله، الملائكة، الكتب، الرسل، اليوم الآخر", "عذاب القبر، نعيم القبر، الحساب، الميزان، الصراط"], correct: 0, hint: "واردة في سورة لقمان." },
+            { question: "من هو الصحابي الذي لُقِب بـ 'أسد الله'؟", options: ["علي بن أبي طالب", "حمزة بن عبد المطلب", "خالد بن الوليد", "عمر بن الخطاب"], correct: 1, hint: "عم النبي ﷺ." },
+            { question: "ما هي كنية أبي بكر الصديق؟", options: ["أبو حفص", "أبو القاسم", "أبو بكر", "أبو عبد الله"], correct: 2, hint: "لقب اشتهر به." },
+            { question: "ما هي الكبائر؟", options: ["المعاصي الصغيرة", "الذنوب العظيمة", "ترك المباح", "ترك المكروه"], correct: 1, hint: "فيها وعيد شديد." },
+            { question: "ما هي 'الراحمون' الذين يرحمهم الله؟", options: ["الذين يرحمون أنفسهم", "الذين يرحمون عباد الله", "الذين يرحمون الحيوانات فقط", "الذين يرحمون الأطفال فقط"], correct: 1, hint: "ارحموا من في الأرض." },
+            { question: "من هو 'الضحاك' في قوله تعالى عن قارون؟", options: ["فرعون", "قارون", "هامان", "أبو جهل"], correct: 1, hint: "الذي خرج على قومه بزينته." },
+            { question: "ما هي 'الغاسقة' في قوله تعالى 'والليل إذا عسعس'؟", options: ["ظلمة الليل", "النهار", "الصبح", "الشمس"], correct: 0, hint: "الوقت المظلم." },
+            { question: "من هو الصحابي الذي استشاره النبي ﷺ في الهجرة؟", options: ["أبو بكر", "عمر", "علي", "أسامة"], correct: 0, hint: "رفيق الهجرة." },
+            { question: "ما هو 'القلم' في قوله تعالى 'ن والقلم'؟", options: ["القلم الذي يكتب به الناس", "القلم الذي كتب به المقادير", "قلم الجرائد", "لغة مجازية"], correct: 1, hint: "أول ما خلق الله." },
+            { question: "من هي المرأة التي قالت 'ويل لي هل أنا حاملة وأنا عجوز'؟", options: ["سارة", "مريم", "امرأة نوح", "امرأة فرعون"], correct: 0, hint: "زوجة إبراهيم عليه السلام." },
+            { question: "من هو النبي الذي سخر له الله الريح؟", options: ["داود", "سليمان", "إلياس", "اليسع"], correct: 1, hint: "ملك نبي له ملك عظيم." },
+            { question: "ما هي السورة التي تسمى 'القلب'؟", options: ["يس", "الرحمن", "مريم", "طه"], correct: 0, hint: "قلب القرآن." },
+            { question: "ما هي الغزوة التي أُصيب فيها النبي ﷺ وشُج وجهه؟", options: ["بدر", "أحد", "الخندق", "حنين"], correct: 1, hint: "غزوة انهزم فيها المسلمون أولاً." },
+
+            // --- القسم الرابع: الفقه وأصوله ---
+            { question: "ما هي أركان الإسلام؟", options: ["5 أركان", "6 أركان", "الإيمان والعمل", "الشهادتين فقط"], correct: 0, hint: "بنى عليها الدين." },
+            { question: "كم عدد صلوات اليوم والليلة؟", options: ["4 صلوات", "5 صلوات", "6 صلوات", "7 صلوات"], correct: 1, hint: "فرضت ليلة الإسراء." },
+            { question: "كم عدد ركعات صلاة الفجر؟", options: ["ركعتان", "ثلاث ركعات", "أربع ركعات", "ركعة واحدة"], correct: 0, hint: "صلاة الصبح." },
+            { question: "ما هو وقت صلاة العصر؟", options: ["من طلوع الشمس", "من زوال الشمس", "من بعد الظهر إلى الغروب", "من بعد المغرب"], correct: 2, hint: "الصلاة الوسطى." },
+            { question: "ما هي شروط الصلاة؟", options: ["الطهارة، استقبال القبلة، ستر العورة", "قراءة الفاتحة", "الركوع والسجود", "الأذان"], correct: 0, hint: "لا تصح بدونها." },
+            { question: "كم عدد سنن الوضوء؟", options: ["10 سنن", "15 سنة", "12 سنة", "20 سنة"], correct: 1, hint: "عند الشافعية." },
+            { question: "ما هي صلاة التطوع التي تُصلى قبل الفريضة؟", options: ["سنة بَعدية", "سنة قَبلية", "قيام الليل", "الضحى"], correct: 1, hint: "تسبق الركعات المفروضة." },
+            { question: "ما هي الزكاة؟", options: ["صدقة تطوع", "الركن الثالث من أركان الإسلام", "صيام رمضان", "حج البيت"], correct: 1, hint: "حق المال." },
+            { question: "ما هو نصاب زكاة الذهب؟", options: ["85 جراماً", "92 جراماً", "100 جرام", "200 جرام"], correct: 0, hint: "مقدار محدد شرعاً." },
+            { question: "من هم الأصهار الذين حرموا في سورة النساء؟", options: ["أمهات النساء", "بنات النساء", "أخوات النساء", "الإجابة أ و ب"], correct: 3, hint: "المحرمات بالمصاهرة." },
+            { question: "ما هي 'العدة'؟", options: ["مدة الانتظار للمرأة", "مدة الحمل", "مدة الرضاعة", "مدة الخطبة"], correct: 0, hint: "بعد الطلاق أو الوفاة." },
+            { question: "كم عدة المتوفى عنها زوجها؟", options: ["3 حيضات", "4 أشهر وعشرة أيام", "حيضة واحدة", "شهران"], correct: 1, hint: "مدة أطول من المطلقة." },
+            { question: "من هم الأئمة الأربعة؟", options: ["أبو بكر، عمر، عثمان، علي", "مالك، الشافعي، أبو حنيفة، أحمد", "البخاري، مسلم، الترمذي، النسائي", "ابن حجر، النووي، السيوطي، ابن كثير"], correct: 1, hint: "أئمة المذاهب الفقهية." },
+            { question: "ما هو القياس في الفقه؟", options: ["النص القرآني", "إلحاق فرع بأصل لعلة جامعة", "قول الصحابي", "الإجماع"], correct: 1, hint: "أحد مصادر التشريع." },
+            { question: "ما هي 'القرعة'؟", options: ["الضرب بالعصا", "الاستهام بين المستحقين", "القسمة", "البيع"], correct: 1, hint: "طريقة للحل عند التساوي." },
+            { question: "ما حكم صيام رمضان؟", options: ["سنة", "واجب", "مكروه", "مباح"], correct: 1, hint: "أحد أركان الإسلام." },
+            { question: "ما هو 'الاعتكاف'؟", options: ["البقاء في المسجد لطاعة الله", "الجلوس في البيت", "السفر للجهاد", "صلاة التراويح"], correct: 0, hint: "غالباً في العشر الأواخر." },
+            { question: "من هم الذين يُباح لهم الإفطار في رمضان؟", options: ["المسافر والمريض", "الصغير", "المجنون", "جميع ما سبق"], correct: 3, hint: "حسب الأحوال والأهلية." },
+            { question: "ما هي 'الكفارة'؟", options: ["الإثم", "ما يُكفر به الذنب", "الدية", "القصاص"], correct: 1, hint: "مثل كفارة اليمين أو الظهار." },
+            { question: "ما هي شروط الحج؟", options: ["الإسلام، العقل، البلوغ، الاستطاعة", "المال فقط", "الصحة فقط", "الرجولة فقط"], correct: 0, hint: "شروط وجوب." },
+            { question: "ما هي 'الإحرام'؟", options: ["الدخول في النسك", "التلبية", "الطواف", "السعي"], correct: 0, hint: "أول أركان الحج." },
+            { question: "ما هو 'الوقوف بعرفة'؟", options: ["ركن الحج الأعظم", "جزء من العمرة", "سنة الحج", "واجب فقط"], correct: 0, hint: "من لم يقف لم يصح حجه." },
+            { question: "كم عدد أشهر الحج؟", options: ["شهر واحد", "شهران", "ثلاثة أشهر", "أربعة أشهر"], correct: 2, hint: "شوال، ذو القعدة، ذو الحجة." },
+            { question: "ما هي 'العمرة'؟", options: ["الحج الأصغر", "الزيارة للمسجد", "الطواف فقط", "الصلاة في الحرم"], correct: 0, hint: "تسمى الحج الأصغر." },
+            { question: "ما هو 'الهدي'؟", options: ["الهدية", "ما يُهدى للحرم من الأنعام", "الإرشاد", "العلم"], correct: 1, hint: "في الحج والعمرة." },
+            { question: "ما هي 'الجمع' في الصلاة؟", options: ["صلاة الظهر والعصر معاً", "صلاة الفجر والعشاء معاً", "صلاة الظهر والعصر أو المغرب والعشاء في وقت واحد", "جميع ما سبق"], correct: 2, hint: "جائز للمسافر والمريض." },
+            { question: "ما هي 'القصر' في الصلاة؟", options: ["تقصير الصلاة الرباعية", "تأخير الصلاة", "الصلاة في البيت", "ترك الصلاة"], correct: 0, hint: "تكون في السفر." },
+            { question: "من هو ولي أمر المرأة في النكاح؟", options: ["الأب أو الأخ أو العم", "الجار", "القاضي فقط", "لا تحتاج لولي"], correct: 0, hint: "المحرم للمرأة." },
+            { question: "ما هو 'الخلع'؟", options: ["الزواج", "الطلاق بطلب الزوجة مقابل عوض", "الهبة", "الرجعة"], correct: 1, hint: "طلاق يحصل بطلب الزوجة." },
+            { question: "ما هي 'الدية'؟", options: ["الغرامة المالية في القتل الخطأ", "القصاص", "السجن", "الجلد"], correct: 0, hint: "مال يُدفع لأهل القتيل." },
+            { question: "ما هو 'الرهن'؟", options: ["البيع", "وثيقة بدين", "الهبة", "القرض"], correct: 1, hint: "حبس العين لاستيفاء الحق." },
+            { question: "ما هي 'الوكالة'؟", options: ["التوكيل في التصرف", "الشركة", "البيع", "الشراء"], correct: 0, hint: "نيابة عن الغير." },
+            { question: "ما هي 'الوديعة'؟", options: ["ما يُترك عند شخص لحفظه", "القرض", "الهبة", "الصدقة"], correct: 0, hint: "أمانة عند الشخص." },
+            { question: "ما هي 'الشركة'؟", options: ["العقد بين اثنين في مال وربح", "العمل الفردي", "البيع بالتقسيط", "الرهن"], correct: 0, hint: "اشتراك في الربح والخسارة." },
+            { question: "ما حكم الربا؟", options: ["حلال", "حرام", "مكروه", "مباح"], correct: 1, hint: "من الكبائر والمحرمات." },
+            { question: "ما هي 'البيِّنة'؟", options: ["الإقرار", "الشهود", "اليمين", "الحجة والإثبات"], correct: 3, hint: "الدليل على الحق." },
+            { question: "ما هو 'القسامة'؟", options: ["القسم على دم القتيل", "شهادة الزور", "اليمين الكاذبة", "القصاص"], correct: 0, hint: "أيمان يتكرر في دموى." },
+            { question: "كم عدد التكبيرات في صلاة الجنازة؟", options: ["3 تكبيرات", "4 تكبيرات", "5 تكبيرات", "تكبيرة واحدة"], correct: 1, hint: "تكبيرة الإحرام وتكبيرات بعدها." },
+            { question: "ما هي 'العقيقة'؟", options: ["ذبح شاة للمولود", "الأضحية", "العقيقة عن الميت", "الصدقة"], correct: 0, hint: "يوم السابع للمولود." },
+
+            // --- القسم الخامس: السيرة النبوية والتاريخ الإسلامي ---
+            { question: "أين وُلد النبي محمد ﷺ؟", options: ["الطائف", "مكة المكرمة", "المدينة المنورة", "جدة"], correct: 1, hint: "في شعب بني هاشم." },
+            { question: "ما اسم أم النبي ﷺ؟", options: ["آمنة بنت وهب", "هالة بنت أهيب", "فاطمة بنت أسد", "خديجة بنت خويلد"], correct: 0, hint: "من بني زهرة." },
+            { question: "كم كان عمر النبي ﷺ حين توفي أبوه؟", options: ["ولد يتيماً", "سنتان", "6 سنوات", "8 سنوات"], correct: 0, hint: "مات أبوه قبل ولادته أو وهو حمل." },
+            { question: "من هي مرضعة النبي ﷺ الأولى؟", options: ["حليمة السعدية", "ثويبة", "أم أيمن", "خديجة"], correct: 1, hint: "أرضعته قبل حليمة." },
+            { question: "في أي عام ماتت أم النبي ﷺ؟", options: ["العام الأول من البعثة", "العام السادس من العمر", "عام الحزن", "بعد الهجرة"], correct: 1, hint: "في الأبواء." },
+            { question: "من هو جبريل عليه السلام؟", options: ["ملك الموت", "الملك الموكل بالوحي", "ملك الرياح", "ملك الجبال"], correct: 1, hint: "الروح الأمين." },
+            { question: "من هي أول زوجات النبي ﷺ؟", options: ["عائشة", "خديجة", "سودة", "حفصة"], correct: 1, hint: "أم المؤمنين الأولى." },
+            { question: "كم سنة استمرت الدعوة السرية؟", options: ["سنة واحدة", "ثلاث سنوات", "خمس سنوات", "سبع سنوات"], correct: 1, hint: "قبل الإعلان في دار الأرقم." },
+            { question: "من هو أول من أسلم من الرجال الأحرار؟", options: ["أبو بكر الصديق", "علي بن أبي طالب", "خديجة بنت خويلد", "زيد بن حارثة"], correct: 0, hint: "صاحب الغار." },
+            { question: "من هو الصحابي الذي هاجر إلى الحبشة ثم قدم المدينة؟", options: ["عثمان بن عفان", "جعفر بن أبي طالب", "عمر بن الخطاب", "حمزة بن عبد المطلب"], correct: 1, hint: "تيار الهجرة الثانية للحبشة." },
+            { question: "ما اسم الغزوة التي استشهد فيها حمزة بن عبد المطلب؟", options: ["بدر", "أحد", "الخندق", "خيبر"], correct: 1, hint: "سيد الشهداء." },
+            { question: "من هو الصحابي الذي دعا له النبي ﷺ 'اللهم فقهه في الدين'؟", options: ["عبد الله بن عمر", "عبد الله بن عباس", "معاذ بن جبل", "أُبي بن كعب"], correct: 1, hint: "حبر الأمة." },
+            { question: "كم عدد الشهداء في غزوة بدر؟", options: ["14 شهيداً", "70 شهيداً", "50 شهيداً", "3 شهداء"], correct: 0, hint: "عدد قليل مقارنة بقتلى المشركين." },
+            { question: "كم عدد أهل بدر من المسلمين؟", options: ["313", "1000", "700", "3000"], correct: 0, hint: "عدد قليل من المؤمنين." },
+            { question: "ما هي أطول غزوات النبي ﷺ؟", options: ["بدر", "الخندق", "تبوك", "حنين"], correct: 2, hint: "في زمن العسرة." },
+            { question: "من هو 'سيف الله المسلول'؟", options: ["علي بن أبي طالب", "خالد بن الوليد", "عمر بن الخطاب", "حمزة بن عبد المطلب"], correct: 1, hint: "قائد عسكري لم يهزم قط." },
+            { question: "من هي زوجة النبي ﷺ التي تسمى 'أم المساكين'؟", options: ["خديجة", "زينب بنت خزيمة", "ميمونة", "جويرية"], correct: 1, hint: "تزوجها النبي بعد زوجها الشهيد." },
+            { question: "من هو الصحابي الذي اهتز عرش الرحمن لموته؟", options: ["عمر بن الخطاب", "سعد بن معاذ", "حمزة بن عبد المطلب", "خالد بن الوليد"], correct: 1, hint: "سيد الأوس." },
+            { question: "من هي المرأة التي كفلت النبي ﷺ بعد وفاة جده؟", options: ["أم أيمن", "فاطمة بنت أسد", "آمنة بنت وهب", "عمه أبو طالب"], correct: 3, hint: "كفله عمه." },
+            { question: "كم عدد أبناء النبي ﷺ من الذكور؟", options: ["3", "4", "2", "5"], correct: 0, hint: "القاسم، عبد الله، إبراهيم." },
+            { question: "من هو آخر زوجات النبي ﷺ وفاة؟", options: ["عائشة", "أم سلمة", "ميمونة", "حفصة"], correct: 1, hint: "توفيت آخر من أمهات المؤمنين." },
+            { question: "ما اسم فرس النبي ﷺ المشهور؟", options: ["اللزاز", "السكب", "المرتجز", "جميع ما سبق"], correct: 3, hint: "كان له عدة خيول." },
+            { question: "من هو 'ساقي الحرمين'؟", options: ["عبد المطلب", "هاشم", "قصي", "عبد مناف"], correct: 0, hint: "جد النبي ﷺ." },
+            { question: "من هي الملكة التي أسلمت بعد هداية سليمان؟", options: ["بلقيس", "هيروديا", "نفرتيتي", "كليوباترا"], correct: 0, hint: "ملكة سبأ." },
+            { question: "من هو 'ذو النورين'؟", options: ["علي بن أبي طالب", "عثمان بن عفان", "طلحة بن عبيد الله", "الزبير بن العوام"], correct: 1, hint: "تزوج ابنتي النبي ﷺ." },
+            { question: "من هو 'الفاروق'؟", options: ["أبو بكر", "عمر", "عثمان", "علي"], correct: 1, hint: "فرق بين الحق والباطل." },
+            { question: "من هو 'الصديق'؟", options: ["عمر", "عثمان", "أبو بكر", "علي"], correct: 2, hint: "أول من صدق النبي." },
+            { question: "كم دامت خلافة أبي بكر الصديق؟", options: ["سنتان", "سنتان وثلاثة أشهر", "عشر سنوات", "خمس سنوات"], correct: 1, hint: "أقصر خلافة Rashidun." },
+            { question: "من هو الذي قُتل في الصلاة؟", options: ["عمر بن الخطاب", "عثمان بن عفان", "علي بن أبي طالب", "معاوية بن أبي سفيان"], correct: 2, hint: "في صلاة الفجر." },
+            { question: "من هي المرأة التي حملت لواء الحرب؟", options: ["خولة بنت الأزور", "عائشة بنت أبي بكر", "حفصة بنت عمر", "أسماء بنت أبي بكر"], correct: 0, hint: "مجاهدة شهيرة." },
+
+            // --- القسم السادس: أسئلة متنوعة ---
+            { question: "من هو الصحابي الذي اختبأ النبي ﷺ في فراشه يوم الهجرة؟", options: ["أبو بكر الصديق", "علي بن أبي طالب", "عمر بن الخطاب", "عثمان بن عفان"], correct: 1, hint: "ليرد الأمانات." },
+            { question: "كم مرة حج النبي ﷺ؟", options: ["مرة واحدة", "مرتين", "ثلاث مرات", "أربع مرات"], correct: 0, hint: "في السنة العاشرة." },
+            { question: "من هو 'حبر الأمة'؟", options: ["عبد الله بن مسعود", "عبد الله بن عباس", "معاذ بن جبل", "زيد بن ثابت"], correct: 1, hint: "البحر العلم." },
+            { question: "من هو الصحابي الذي شبهه النبي ﷺ بنبي الله إبراهيم في الخُلق؟", options: ["أبو بكر", "عثمان", "عمر", "علي"], correct: 1, hint: "ذو النورين." },
+            { question: "ما هي المعجزة التي أعطاها الله لموسى عليه السلام؟", options: ["إحياء الموتى", "العصا", "القرآن", "شق القمر"], correct: 1, hint: "انقلبت ثعباناً." },
+            { question: "ما هي المعجزة التي أعطاها الله لعيسى عليه السلام؟", options: ["إبراء الأكمه والأبرص", "العصا", "النار", "الطوفان"], correct: 0, hint: "يبرئ المرضى بإذن الله." },
+            { question: "من هو النبي الذي ابتلعه الحوت؟", options: ["نوح", "يونس", "موسى", "هود"], correct: 1, hint: "ذا النون." },
+            { question: "من هو 'أمين هذه الأمة'؟", options: ["أبو عبيدة بن الجراح", "طلحة بن عبيد الله", "الزبير بن العوام", "عبد الرحمن بن عوف"], correct: 0, hint: "أمين هذه الأمة." },
+            { question: "من هو الصحابي الذي نزلت الملائكة للقتال معه؟", options: ["علي بن أبي طالب", "أبو بكر الصديق", "المقداد بن عمرو", "عبد الله بن رواحة"], correct: 2, hint: "قال لأُبيّ بن كعب في بدر." },
+            { question: "من هو آخر من يموت من هذه الأمة؟", options: ["عيسى عليه السلام", "الملائكة", "رجل من اليمن", "الجميع يموت قبل يوم القيامة"], correct: 2, hint: "تقوم الساعة بعده." },
+
+            // إكمال العدد إلى 200 (أسئلة إضافية متنوعة)
+            { question: "ما هي الصلاة التي تُسمى 'الوسطى'؟", options: ["الفجر", "الظهر", "العصر", "العشاء"], correct: 2, hint: "ورد التحذير من تركها." },
+            { question: "من هو نبي الله الذي ابتلاه الله بمرض شديد؟", options: ["أيوب", "يونس", "يعقوب", "يوسف"], correct: 0, hint: "صبر فكان جزاؤه الشفاء." },
+            { question: "ما اسم غار النملة التي قرصت نبي الله سليمان؟", options: ["غار النمل", "وادي النمل", "جبل النمل", "لم يذكر الاسم"], correct: 3, hint: "لم يذكر اسمه في السنة." },
+            { question: "كم عدد أبواب الكعبة المشرفة؟", options: ["باب واحد", "بابان", "ثلاثة أبواب", "لا يوجد باب"], correct: 1, hint: "باب للدخول وباب للخروج (باب التوبة)." },
+            { question: "من هو النبي الذي انشق له القمر؟", options: ["إبراهيم", "محمد ﷺ", "موسى", "عيسى"], correct: 1, hint: "معجزة في مكة." },
+            { question: "ما هو اسم ناقة النبي صالح؟", options: ["القعود", "العيناء", "لم يذكر اسمها", "العصماء"], correct: 2, hint: "ذكرت في القرآن بـ 'الناقة' فقط." },
+            { question: "من هو أول من جمع المصحف الشريف في عهد عثمان؟", options: ["زيد بن ثابت", "عبد الله بن الزبير", "سعيد بن العاص", "عبد الرحمن بن الحارث"], correct: 0, hint: "هو نفسه من جمعه في عهد أبي بكر." },
+            { question: "من هو الصحابي الذي أمره النبي ﷺ بتعلم لغة اليهود؟", options: ["زيد بن ثابت", "عبد الله بن عباس", "معاذ بن جبل", "أُبي بن كعب"], correct: 0, hint: "تعلم السريانية في 17 يوماً." },
+            { question: "ما هي السورة التي تسمى 'المعوذات'؟", options: ["الفلق والناس", "الإخلاص والفلق والناس", "الإخلاص فقط", "الكوثر والإخلاص"], correct: 1, hint: "يُستعاذ بها." },
+            { question: "ما هي أكبر غزوة في تاريخ الإسلام؟", options: ["بدر", "الخندق", "اليرموك", "القادسية"], correct: 2, hint: "في عهد عمر بن الخطاب." }
         ];
 
         let currentQuiz = 0;
         let score = 0;
         let selectedQuestions = [];
-        const QUESTIONS_PER_GAME = 10;
+        const QUESTIONS_PER_GAME = 25; // تم تعديلها إلى 25 سؤال
+
+        let timeLeft = 10;
+        let timerInterval;
 
         function validateAndStart() {
             const nameInput = document.getElementById('playerName').value.trim();
             const patrolInput = document.getElementById('patrolName').value.trim();
             const phoneInput = document.getElementById('playerPhone').value.trim();
 
-            if(nameInput === "" || patrolInput === "") {
+            if (nameInput === "" || patrolInput === "") {
                 document.getElementById('error-msg').style.display = 'block';
                 return;
             }
@@ -208,12 +664,36 @@
             loadQuiz();
         }
 
+        function startTimer() {
+            timeLeft = 10;
+            const timerBox = document.getElementById('timer-box');
+            const timeDisplay = document.getElementById('time-left');
+
+            timerBox.classList.remove('timer-danger');
+            timeDisplay.innerText = timeLeft;
+            clearInterval(timerInterval);
+
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                timeDisplay.innerText = timeLeft;
+
+                if (timeLeft <= 3) {
+                    timerBox.classList.add('timer-danger');
+                }
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    handleTimeOut();
+                }
+            }, 1000);
+        }
+
         function loadQuiz() {
             document.getElementById('hint').style.display = 'none';
             document.getElementById('next-btn').style.display = 'none';
             document.getElementById('avatar').innerHTML = "🧑‍🌾";
             document.getElementById('avatar').classList.remove('happy');
-            
+
             const optionsEl = document.getElementById('options');
             optionsEl.innerHTML = '';
 
@@ -228,9 +708,14 @@
                 button.onclick = () => selectAnswer(index, button);
                 optionsEl.appendChild(button);
             });
+
+            // بدء المؤقت عند تحميل كل سؤال
+            startTimer();
         }
 
         function selectAnswer(selectedIndex, buttonElement) {
+            clearInterval(timerInterval); // إيقاف المؤقت عند الإجابة
+
             const currentData = selectedQuestions[currentQuiz];
             const allButtons = document.querySelectorAll('.option-btn');
             allButtons.forEach(btn => btn.disabled = true);
@@ -238,18 +723,34 @@
             if (selectedIndex === currentData.correct) {
                 buttonElement.classList.add('correct');
                 score++;
-                document.getElementById('avatar').innerHTML = "🤩"; 
+                document.getElementById('avatar').innerHTML = "🤩";
                 document.getElementById('avatar').classList.add('happy');
                 createConfetti();
                 document.getElementById('next-btn').style.display = 'inline-block';
             } else {
                 buttonElement.classList.add('wrong');
-                document.getElementById('avatar').innerHTML = "🤔"; 
+                document.getElementById('avatar').innerHTML = "🤔";
                 allButtons[currentData.correct].classList.add('correct');
-                document.getElementById('hint-text').innerText = currentData.hint;
+
+                let hintMsg = currentData.hint || "الإجابة الصحيحة موضحة باللون الأخضر.";
+                document.getElementById('hint-text').innerText = hintMsg;
                 document.getElementById('hint').style.display = 'block';
                 document.getElementById('next-btn').style.display = 'inline-block';
             }
+        }
+
+        function handleTimeOut() {
+            const currentData = selectedQuestions[currentQuiz];
+            const allButtons = document.querySelectorAll('.option-btn');
+            allButtons.forEach(btn => btn.disabled = true);
+
+            allButtons[currentData.correct].classList.add('correct');
+            document.getElementById('avatar').innerHTML = "⏰";
+
+            let hintMsg = currentData.hint || "ركز في المرة القادمة!";
+            document.getElementById('hint-text').innerText = "انتهى الوقت! " + hintMsg;
+            document.getElementById('hint').style.display = 'block';
+            document.getElementById('next-btn').style.display = 'inline-block';
         }
 
         function nextQuestion() {
@@ -262,56 +763,52 @@
         }
 
         function showResults() {
-            userData.score = score; 
+            clearInterval(timerInterval); // التأكد من إيقاف المؤقت
+            userData.score = score;
 
             document.getElementById('quiz-screen').style.display = 'none';
             const resultScreen = document.getElementById('result-screen');
             resultScreen.style.display = 'block';
 
-            // رسالة الانتظار أثناء الإرسال لجوجل
             resultScreen.innerHTML = `
                 <h2 style="color: var(--scout-green); margin-bottom: 20px;">جاري حفظ النتيجة... ⏳</h2>
                 <p style="font-size: 1.2rem;">برجاء الانتظار ثانية واحدة وعدم إغلاق الصفحة.</p>
             `;
 
-            // إرسال البيانات (مع التعديل لتفادي أخطاء CORS)
             fetch(GOOGLE_SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: {
-                    // هذا السطر تم تعديله وهو السر لكي يقبل جوجل البيانات بدون أخطاء
-                    'Content-Type': 'text/plain;charset=utf-8', 
+                    'Content-Type': 'text/plain;charset=utf-8',
                 },
                 body: JSON.stringify(userData)
             })
-            .then(() => {
-                // إظهار النتيجة النهائية بعد إرسال البيانات
-                let message = "";
-                let percentage = (score / QUESTIONS_PER_GAME) * 100;
+                .then(() => {
+                    let message = "";
+                    let percentage = (score / QUESTIONS_PER_GAME) * 100;
 
-                if(percentage >= 70) {
-                    message = "رائع جداً! مجهود مشرف، تم تسجيل نتيجتك بنجاح.";
-                    createConfetti();
-                    setTimeout(createConfetti, 500);
-                } else {
-                    message = "محاولة جيدة، تم تسجيل نتيجتك. استمر في القراءة والتعلم!";
-                }
+                    if (percentage >= 70) {
+                        message = "رائع جداً! مجهود مشرف، تم تسجيل نتيجتك بنجاح.";
+                        createConfetti();
+                        setTimeout(createConfetti, 500);
+                    } else {
+                        message = "محاولة جيدة، تم تسجيل نتيجتك. استمر في القراءة والتعلم!";
+                    }
 
-                resultScreen.innerHTML = `
+                    resultScreen.innerHTML = `
                     <h2 style="color: var(--scout-green); margin-bottom: 15px;">تم الحفظ يا ${userData.name} ✅</h2>
                     <h3 style="margin-bottom: 15px;">النتيجة: <span style="color: var(--danger); font-size: 2.5rem;">${score}</span> / ${QUESTIONS_PER_GAME}</h3>
                     <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 20px; line-height: 1.5;">${message}</p>
                     <p style="color: #666; font-size: 1.1rem;">اسم الرهط: ${userData.patrol}</p>
                 `;
-            })
-            .catch((error) => {
-                // لو النت فصل مثلاً
-                resultScreen.innerHTML = `
+                })
+                .catch((error) => {
+                    resultScreen.innerHTML = `
                     <h2 style="color: red; margin-bottom: 15px;">حدث خطأ في الاتصال بالإنترنت!</h2>
-                    <h3 style="margin-bottom: 15px;">نتيجتك: <span style="color: var(--danger); font-size: 2.5rem;">${score}</span></h3>
+                    <h3 style="margin-bottom: 15px;">نتيجتك: <span style="color: var(--danger); font-size: 2.5rem;">${score}</span> / ${QUESTIONS_PER_GAME}</h3>
                     <p>يرجى أخذ "سكرين شوت" لهذه الشاشة وإرسالها للقائد.</p>
                 `;
-            });
+                });
         }
 
         function createConfetti() {
@@ -328,4 +825,5 @@
         }
     </script>
 </body>
+
 </html>
