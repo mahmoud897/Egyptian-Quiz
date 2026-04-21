@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المسابقة الثقافية والدينية للجوالة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --scout-green: #1f4e3d;
+            --scout-light-green: #2a6f55;
+            --scout-brown: #8b5a2b;
+            --scout-sand: #f4ecd8;
+            --gold: #d4af37;
+            --danger: #dc3545;
+            --success: #28a745;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--scout-green);
+            background-image: radial-gradient(circle at 50% 0%, var(--scout-light-green) 0%, var(--scout-green) 100%);
+            color: #333; display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; overflow-x: hidden; padding: 20px 0;
+        }
+        .container {
+            background-color: var(--scout-sand); width: 95%; max-width: 700px;
+            border-radius: 20px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+            padding: 30px; text-align: center; position: relative; z-index: 10;
+            border: 4px solid var(--scout-brown);
+        }
+        .header { border-bottom: 2px dashed var(--scout-brown); padding-bottom: 15px; margin-bottom: 20px; }
+        .scout-logo { font-size: 2.5rem; color: var(--gold); margin-bottom: 5px; }
+        h1 { color: var(--scout-green); font-size: 1.6rem; margin-bottom: 5px; }
+        
+        .form-group { margin-bottom: 15px; text-align: right; }
+        .form-group label { display: block; font-weight: bold; color: var(--scout-green); margin-bottom: 5px; font-size: 1.1rem; }
+        .form-group input {
+            width: 100%; padding: 12px; border: 2px solid var(--scout-brown);
+            border-radius: 8px; font-family: 'Tajawal', sans-serif; font-size: 1rem;
+            background-color: white; outline: none;
+        }
+        .form-group input:focus { border-color: var(--scout-green); }
+        .start-btn {
+            background-color: var(--scout-green); color: white; border: none;
+            padding: 15px 40px; font-size: 1.3rem; font-weight: bold; border-radius: 30px;
+            margin-top: 20px; cursor: pointer; width: 100%; font-family: 'Tajawal', sans-serif;
+            transition: background 0.3s;
+        }
+        .start-btn:hover { background-color: var(--scout-light-green); }
+
+        .avatar-container { font-size: 4.5rem; margin: 15px 0; transition: transform 0.3s ease; height: 80px; display: flex; align-items: center; justify-content: center; }
+        .avatar-container.happy { animation: bounce 0.5s ease; }
+        .question-text { font-size: 1.3rem; font-weight: 800; margin-bottom: 25px; color: #111; line-height: 1.5; }
+        .options { display: flex; flex-direction: column; gap: 12px; }
+        .option-btn {
+            background-color: white; border: 2px solid var(--scout-brown); color: var(--scout-brown);
+            padding: 15px 20px; font-size: 1.1rem; font-family: 'Tajawal', sans-serif; font-weight: 700;
+            border-radius: 12px; cursor: pointer; transition: all 0.2s ease; text-align: right;
+        }
+        .option-btn:hover:not(:disabled) { background-color: var(--scout-brown); color: white; transform: translateY(-2px); }
+        .option-btn:disabled { cursor: not-allowed; opacity: 0.85; }
+        .correct { background-color: var(--success) !important; border-color: var(--success) !important; color: white !important; animation: pulse 0.5s; }
+        .wrong { background-color: var(--danger) !important; border-color: var(--danger) !important; color: white !important; animation: shake 0.4s; }
+        .hint-box { display: none; background-color: #fff3cd; color: #856404; border: 2px solid #ffeeba; padding: 15px; border-radius: 10px; margin-top: 20px; font-size: 1.1rem; text-align: right; animation: fadeIn 0.5s; }
+        .next-btn { display: none; background-color: var(--scout-green); color: white; border: none; padding: 15px 40px; font-size: 1.2rem; font-weight: bold; border-radius: 30px; margin-top: 25px; cursor: pointer; font-family: 'Tajawal', sans-serif; transition: background 0.3s; }
+        .next-btn:hover { background-color: var(--scout-light-green); }
+        .progress { margin-top: 25px; font-size: 1rem; font-weight: bold; color: var(--scout-brown); background: rgba(139, 90, 43, 0.1); padding: 8px 15px; border-radius: 20px; display: inline-block; }
+        
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-10px); } 40% { transform: translateX(10px); } 60% { transform: translateX(-10px); } 80% { transform: translateX(10px); } }
+        @keyframes bounce { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-25px) scale(1.15); } }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-15px); } to { opacity: 1; transform: translateY(0); } }
+        .confetti { position: absolute; width: 12px; height: 12px; background-color: #f00; z-index: 1000; border-radius: 2px; animation: fall linear forwards; }
+        @keyframes fall { to { transform: translateY(100vh) rotate(720deg); } }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="main-container">
+        <div class="header">
+            <div class="scout-logo">⚜️</div>
+            <h1>المسابقة الثقافية والدينية</h1>
+            <p>معالمنا، قيمنا المشتركة، ووحدتنا الوطنية</p>
+        </div>
+
+        <!-- شاشة تسجيل البيانات -->
+        <div id="registration-screen">
+            <h2 style="color: var(--scout-brown); margin-bottom: 20px;">سجل بياناتك للبدء</h2>
+            <div class="form-group">
+                <label for="playerName">الاسم الثلاثي:</label>
+                <input type="text" id="playerName" placeholder="أدخل اسمك هنا..." required>
+            </div>
+            <div class="form-group">
+                <label for="patrolName">اسم الرهط / الطليعة:</label>
+                <input type="text" id="patrolName" placeholder="مثال: رهط الصقر..." required>
+            </div>
+            <div class="form-group">
+                <label for="playerPhone">رقم التليفون (اختياري):</label>
+                <input type="tel" id="playerPhone" placeholder="أدخل رقمك للتواصل...">
+            </div>
+            <button class="start-btn" onclick="validateAndStart()">ابدأ المسابقة الآن ➔</button>
+            <p id="error-msg" style="color: red; margin-top: 10px; display: none;">يرجى إدخال الاسم واسم الرهط!</p>
+        </div>
+
+        <!-- شاشة المسابقة -->
+        <div id="quiz-screen" style="display: none;">
+            <div class="avatar-container" id="avatar">🧑‍🌾</div>
+            <div class="question-text" id="question">جاري التحميل...</div>
+            <div class="options" id="options"></div>
+            
+            <div class="hint-box" id="hint">
+                <span class="hint-icon">💡</span> <strong>تلميح صديقك الجوال:</strong> <span id="hint-text"></span>
+            </div>
+
+            <button class="next-btn" id="next-btn" onclick="nextQuestion()">السؤال التالي ➔</button>
+            <br>
+            <div class="progress" id="progress">السؤال 1</div>
+        </div>
+
+        <!-- شاشة النتيجة -->
+        <div id="result-screen" style="display: none;"></div>
+    </div>
+
+    <script>
+        // رابط جوجل سكريبت الخاص بك
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwMaJsdaIR8FS8n5NV03M6n3nN5_4T3mndWbmDqRjcsLNzz9l79anjRlOy9_Acbfr9D_A/exec";
+
+        let userData = {
+            name: "",
+            patrol: "",
+            phone: "",
+            score: 0
+        };
+
+        // بنك الأسئلة بالكامل
+        const allQuestions = [
+            { question: "مسجد يعتبر 'تاج العمارة الإسلامية' في مصر، بناه أحد سلاطين المماليك ويتميز بضخامته، ما هو؟", options: ["مسجد السلطان حسن", "مسجد أحمد بن طولون", "مسجد محمد علي", "الجامع الأزهر"], correct: 0, hint: "يقع هذا المسجد في منطقة القلعة بميدان الرميلة." },
+            { question: "من هو القائد المسلم الذي بنى مدينة القاهرة وأسس الجامع الأزهر الشريف؟", options: ["صلاح الدين الأيوبي", "عمرو بن العاص", "جوهر الصقلي", "أحمد بن طولون"], correct: 2, hint: "جاء إلى مصر في عهد الخليفة المعز لدين الله الفاطمي." },
+            { question: "شارع في القاهرة الفاطمية يُعد أكبر متحف مفتوح للآثار الإسلامية في العالم، ما اسمه؟", options: ["شارع الأزهر", "شارع المعز لدين الله", "شارع الخيامية", "شارع الصليبة"], correct: 1, hint: "سمي الشارع على اسم أول الخلفاء الفاطميين في مصر." },
+            { question: "أقدم مسجد في مصر وإفريقيا، وبُني في العاصمة القديمة 'الفسطاط'، ما هو؟", options: ["مسجد الحاكم بأمر الله", "مسجد عمرو بن العاص", "مسجد السيدة زينب", "مسجد الإمام الشافعي"], correct: 1, hint: "بناه الصحابي الذي فتح مصر، ويُعرف بـ 'تاج الجوامع'." },
+            { question: "مسجد في القاهرة يتميز بمئذنته 'الملوية' الفريدة من نوعها والتي تصعد إليها من الخارج، ما هو؟", options: ["مسجد المؤيد شيخ", "مسجد القلعة", "مسجد أحمد بن طولون", "مسجد الأقمر"], correct: 2, hint: "تأثر تصميم هذا المسجد ومئذنته بعمارة مدينة سامراء في العراق." },
+            { question: "قلعة شهيرة في القاهرة بناها قائد عظيم لتكون حصناً منيعاً، وتحتوي داخلها على عدة مساجد، ما هي؟", options: ["قلعة قايتباي", "قلعة صلاح الدين", "قلعة نخل", "حصن بابليون"], correct: 1, hint: "تقع على جبل المقطم وبانيها هو بطل معركة حطين." },
+            { question: "من أقدم وأشهر الكنائس في مصر، وسميت بهذا الاسم لأنها بُنيت على برجين من أبراج حصن بابليون الروماني. ما هي؟", options: ["الكنيسة المرقسية", "كنيسة أبي سرجة", "الكنيسة المعلقة", "كنيسة مارجرجس"], correct: 2, hint: "بسبب بنائها على الأبراج، فهي ترتفع عن مستوى الأرض." },
+            { question: "دير أثري يقع في جنوب سيناء عند سفح جبل موسى، ويُعد من أقدم الأديرة العاملة في العالم، ما هو؟", options: ["دير المحرق", "دير سانت كاترين", "دير الأنبا أنطونيوس", "دير وادي النطرون"], correct: 1, hint: "يحتوي الدير على شجرة العليقة المقدسة." },
+            { question: "منطقة في القاهرة تُعد من أهم محطات مسار العائلة المقدسة، وتوجد بها 'شجرة مريم'، ما هي؟", options: ["المعادي", "مصر القديمة", "المطرية", "جبل الطير"], correct: 2, hint: "منطقة في شرق القاهرة، اشتهرت قديما بمسلة سنوسرت الأول." },
+            { question: "كنيسة أثرية في مجمع الأديان بمصر القديمة، يُعتقد أن العائلة المقدسة اختبأت في المغارة الموجودة أسفلها، ما هي؟", options: ["كنيسة أبي سرجة", "كنيسة السيدة العذراء بالزيتون", "كنيسة الملاك ميخائيل", "الكنيسة البطرسية"], correct: 0, hint: "اسمها مقترن بالقديسين 'سرجيوس وواخس'." },
+            { question: "منطقة صحراوية في مصر تضم مجموعة من أقدم الأديرة القبطية وتُعد مهداً للرهبنة، أين تقع؟", options: ["وادي الريان", "وادي النطرون", "الصحراء البيضاء", "واحة سيوة"], correct: 1, hint: "تقع في محافظة البحيرة على الطريق الصحراوي بين القاهرة والإسكندرية." },
+            { question: "يوجد في أسيوط دير عظيم يُعتبر المحطة الأهم والأطول في مسار العائلة المقدسة بمصر، ما اسمه؟", options: ["دير العذراء بدرنكة", "دير المحرق", "دير الأنبا شنودة", "دير القديسة دميانه"], correct: 1, hint: "يُعرف أيضاً بـ 'جبل قسقام'." },
+            { question: "منطقة أثرية في القاهرة تُجسد الوحدة الوطنية، حيث تضم مسجد عمرو بن العاص، الكنيسة المعلقة، ومعبد بن عزرا في مكان واحد. ما اسمها؟", options: ["القاهرة الفاطمية", "مجمع الأديان", "منطقة الأزهر", "ميدان التحرير"], correct: 1, hint: "اسمها يدل على أنها تجمع أماكن العبادة للديانات السماوية الثلاث." },
+            { question: "شخصية دينية ووطنية مسيحية، لُقب بـ 'خطيب ثورة 1919'، وكان يخطب في الجامع الأزهر، من هو؟", options: ["البابا كيرلس السادس", "القمص سرجيوس", "مكرم عبيد", "البابا شنودة الثالث"], correct: 1, hint: "رجل دين ارتدى العمامة الأزهرية ووقف على منبر الأزهر الشريف منادياً بالوحدة." },
+            { question: "مقولة شهيرة تجسد التسامح والوحدة في مصر: 'الدين لله والوطن...' أكمل:", options: ["للجميع", "للمواطنين", "للعرب", "سلام"], correct: 0, hint: "شعار رُفع خلال ثورة 1919 للتأكيد على مساواة جميع المصريين." },
+            { question: "من هو البطريرك الوطني الذي قال المقولة الشهيرة: 'مصر ليس وطناً نعيش فيه، بل وطن يعيش فينا'؟", options: ["البابا تواضروس الثاني", "البابا شنودة الثالث", "البابا كيرلس السادس", "الأنبا غريغوريوس"], correct: 1, hint: "يُعرف بـ 'بابا العرب' وكان له دور بارز في تعزيز الوحدة الوطنية." },
+            { question: "في أي ثورة مصرية ظهر علم يحمل 'الهلال يعانق الصليب' كرمز قوي للتلاحم بين المسلمين والمسيحيين؟", options: ["ثورة عرابي", "ثورة 1919", "ثورة 23 يوليو", "ثورة القاهرة الأولى"], correct: 1, hint: "ثورة قادها سعد زغلول ضد الاحتلال الإنجليزي." },
+            { question: "رمز إسلامي كبير، كان شيخاً للأزهر وله مواقف مشرفة في دعم الوحدة الوطنية، وكان صديقاً مقرباً للبابا كيرلس، من هو؟", options: ["الشيخ الشعراوي", "الشيخ محمود شلتوت", "الشيخ حسن الباقوري", "الشيخ عبد الحليم محمود"], correct: 2, hint: "له صورة شهيرة تجمعه بالبابا كيرلس يتبادلان فيها الحديث الودي." },
+            { question: "قيمة أخلاقية تعني مساعدة الآخرين وتقديم العون للمحتاجين دون انتظار مقابل، وهي من أساسيات كل الأديان:", options: ["الأمانة", "العطاء (الصدقة/المحبة)", "الشجاعة", "الاعتماد على النفس"], correct: 1, hint: "هي عكس البخل والأنانية." },
+            { question: "فضيلة عظيمة دعا إليها الإسلام والمسيحية، تعني العفو عن من أساء إليك وعدم رد الإساءة بمثلها، ما هي؟", options: ["التسامح", "العدل", "القوة", "الحكمة"], correct: 0, hint: "خلق كريم يجعل المجتمع مترابطاً وينزع الكراهية من القلوب." },
+            { question: "صفة أساسية تعني حفظ الودائع والوعود، ونقيضها الخيانة، وهي من أهم صفات الإنسان الصالح:", options: ["الكرم", "الأمانة", "التواضع", "الصبر"], correct: 1, hint: "كان يُلقب بها النبي محمد قبل البعثة (الصادق الـ...)." },
+            { question: "من القيم المشتركة التي تبني الأوطان، وهي أن تتقبل رأي ومعتقد الآخرين وتعيش معهم بسلام، تُسمى:", options: ["التعايش السلمي", "المنافسة", "الانعزال", "التحدي"], correct: 0, hint: "تعني أن نعيش معاً في نفس المجتمع بحب وسلام رغم اختلافاتنا." },
+            { question: "خلق حميد يعني عدم التكبر على الناس ومعاملتهم بلطف ومساواة مهما كان منصبك أو ثروتك:", options: ["الشجاعة", "التواضع", "الطموح", "الصدق"], correct: 1, hint: "من تواضع لله رفعه." },
+            { question: "ما هو واجبنا تجاه الجار كما حثت جميع الأديان السماوية؟", options: ["تجاهله تماماً", "الإحسان إليه وتفقد أحواله", "التنافس معه فقط", "التدخل في خصوصياته"], correct: 1, hint: "الرسول أوصى بالجار، وكذلك في الوصايا الكتابية." },
+            { question: "البر بالوالدين هو قيمة كبرى تعني:", options: ["طاعتهما واحترامهما ورعايتهما", "توفير المال لهما فقط", "زيارتهما في الأعياد فقط", "الاعتماد عليهما دائما"], correct: 0, hint: "الجنة تحت أقدام الأمهات." },
+            { question: "أين يوجد معبد 'بن عزرا' اليهودي الذي يمثل الضلع الثالث لمجمع الأديان في مصر؟", options: ["في الإسكندرية", "في مصر القديمة بالقاهرة", "في حارة اليهود بالموسكي", "في المعادي"], correct: 1, hint: "يقع في نفس المنطقة التي تضم الكنيسة المعلقة ومسجد عمرو بن العاص." },
+            { question: "ما هي المدينة المصرية التي تُعرف بـ 'مدينة الألف مئذنة' لكثرة مساجدها التاريخية؟", options: ["الإسكندرية", "القاهرة", "رشيد", "أسوان"], correct: 1, hint: "هي عاصمة مصر الحالية." },
+            { question: "شخصية تاريخية عظيمة، كفل لليهود والمسيحيين حرية العبادة في القدس بعد فتحها وكتب لهم 'العهدة العمرية'، من هو؟", options: ["عمر بن الخطاب", "صلاح الدين الأيوبي", "خالد بن الوليد", "أبو بكر الصديق"], correct: 0, hint: "ثاني الخلفاء الراشدين، ويُلقب بالفاروق." },
+            { question: "ما هي المحافظة المصرية التي تحتوي على ثلث آثار العالم، ومن بينها آثار تمزج بين الفن الفرعوني والقبطي والإسلامي؟", options: ["الجيزة", "الأقصر", "سوهاج", "أسوان"], correct: 1, hint: "تقع في صعيد مصر، وكانت تسمى قديماً 'طيبة'." },
+            { question: "ما هو الاسم القديم لمدينة القاهرة قبل أن يبنيها الفاطميون؟", options: ["منف", "طيبة", "الفسطاط / القطائع", "الإسكندرية"], correct: 2, hint: "الفسطاط بناها عمرو بن العاص، والقطائع بناها أحمد بن طولون." }
+        ];
+
+        let currentQuiz = 0;
+        let score = 0;
+        let selectedQuestions = [];
+        const QUESTIONS_PER_GAME = 10;
+
+        function validateAndStart() {
+            const nameInput = document.getElementById('playerName').value.trim();
+            const patrolInput = document.getElementById('patrolName').value.trim();
+            const phoneInput = document.getElementById('playerPhone').value.trim();
+
+            if(nameInput === "" || patrolInput === "") {
+                document.getElementById('error-msg').style.display = 'block';
+                return;
+            }
+
+            userData.name = nameInput;
+            userData.patrol = patrolInput;
+            userData.phone = phoneInput;
+
+            document.getElementById('registration-screen').style.display = 'none';
+            document.getElementById('quiz-screen').style.display = 'block';
+
+            startGame();
+        }
+
+        function shuffleArray(array) {
+            let shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        function startGame() {
+            selectedQuestions = shuffleArray(allQuestions).slice(0, QUESTIONS_PER_GAME);
+            currentQuiz = 0;
+            score = 0;
+            loadQuiz();
+        }
+
+        function loadQuiz() {
+            document.getElementById('hint').style.display = 'none';
+            document.getElementById('next-btn').style.display = 'none';
+            document.getElementById('avatar').innerHTML = "🧑‍🌾";
+            document.getElementById('avatar').classList.remove('happy');
+            
+            const optionsEl = document.getElementById('options');
+            optionsEl.innerHTML = '';
+
+            const currentData = selectedQuestions[currentQuiz];
+            document.getElementById('question').innerText = currentData.question;
+            document.getElementById('progress').innerText = `السؤال ${currentQuiz + 1} من ${QUESTIONS_PER_GAME}`;
+
+            currentData.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.innerText = option;
+                button.classList.add('option-btn');
+                button.onclick = () => selectAnswer(index, button);
+                optionsEl.appendChild(button);
+            });
+        }
+
+        function selectAnswer(selectedIndex, buttonElement) {
+            const currentData = selectedQuestions[currentQuiz];
+            const allButtons = document.querySelectorAll('.option-btn');
+            allButtons.forEach(btn => btn.disabled = true);
+
+            if (selectedIndex === currentData.correct) {
+                buttonElement.classList.add('correct');
+                score++;
+                document.getElementById('avatar').innerHTML = "🤩"; 
+                document.getElementById('avatar').classList.add('happy');
+                createConfetti();
+                document.getElementById('next-btn').style.display = 'inline-block';
+            } else {
+                buttonElement.classList.add('wrong');
+                document.getElementById('avatar').innerHTML = "🤔"; 
+                allButtons[currentData.correct].classList.add('correct');
+                document.getElementById('hint-text').innerText = currentData.hint;
+                document.getElementById('hint').style.display = 'block';
+                document.getElementById('next-btn').style.display = 'inline-block';
+            }
+        }
+
+        function nextQuestion() {
+            currentQuiz++;
+            if (currentQuiz < selectedQuestions.length) {
+                loadQuiz();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            userData.score = score; 
+
+            document.getElementById('quiz-screen').style.display = 'none';
+            const resultScreen = document.getElementById('result-screen');
+            resultScreen.style.display = 'block';
+
+            // رسالة الانتظار أثناء الإرسال لجوجل
+            resultScreen.innerHTML = `
+                <h2 style="color: var(--scout-green); margin-bottom: 20px;">جاري حفظ النتيجة... ⏳</h2>
+                <p style="font-size: 1.2rem;">برجاء الانتظار ثانية واحدة وعدم إغلاق الصفحة.</p>
+            `;
+
+            // إرسال البيانات (مع التعديل لتفادي أخطاء CORS)
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    // هذا السطر تم تعديله وهو السر لكي يقبل جوجل البيانات بدون أخطاء
+                    'Content-Type': 'text/plain;charset=utf-8', 
+                },
+                body: JSON.stringify(userData)
+            })
+            .then(() => {
+                // إظهار النتيجة النهائية بعد إرسال البيانات
+                let message = "";
+                let percentage = (score / QUESTIONS_PER_GAME) * 100;
+
+                if(percentage >= 70) {
+                    message = "رائع جداً! مجهود مشرف، تم تسجيل نتيجتك بنجاح.";
+                    createConfetti();
+                    setTimeout(createConfetti, 500);
+                } else {
+                    message = "محاولة جيدة، تم تسجيل نتيجتك. استمر في القراءة والتعلم!";
+                }
+
+                resultScreen.innerHTML = `
+                    <h2 style="color: var(--scout-green); margin-bottom: 15px;">تم الحفظ يا ${userData.name} ✅</h2>
+                    <h3 style="margin-bottom: 15px;">النتيجة: <span style="color: var(--danger); font-size: 2.5rem;">${score}</span> / ${QUESTIONS_PER_GAME}</h3>
+                    <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 20px; line-height: 1.5;">${message}</p>
+                    <p style="color: #666; font-size: 1.1rem;">اسم الرهط: ${userData.patrol}</p>
+                `;
+            })
+            .catch((error) => {
+                // لو النت فصل مثلاً
+                resultScreen.innerHTML = `
+                    <h2 style="color: red; margin-bottom: 15px;">حدث خطأ في الاتصال بالإنترنت!</h2>
+                    <h3 style="margin-bottom: 15px;">نتيجتك: <span style="color: var(--danger); font-size: 2.5rem;">${score}</span></h3>
+                    <p>يرجى أخذ "سكرين شوت" لهذه الشاشة وإرسالها للقائد.</p>
+                `;
+            });
+        }
+
+        function createConfetti() {
+            const colors = ['#d4af37', '#28a745', '#1f4e3d', '#dc3545'];
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 4000);
+            }
+        }
+    </script>
+</body>
+</html>
